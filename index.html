@@ -236,6 +236,20 @@ function show_infobox() {
             right: 0;
         }
 
+        canvas {
+            image-rendering: optimizeSpeed;             /* Navegadores antiguos */
+            image-rendering: -moz-crisp-edges;          /* Firefox */
+            image-rendering: -webkit-optimize-contrast; /* Safari / Chrome antiguo */
+            image-rendering: pixelated;                 /* Estándar moderno */
+            image-rendering: optimize-contrast;         /* CSS3 */
+            -ms-interpolation-mode: nearest-neighbor;   /* IE */
+            width: 100% !important;
+            height: auto !important;
+            max-width: 1024px;                          /* Resolución nativa 1024x768 */
+            display: block;
+            margin: 0 auto;
+        }
+
         body {
             font-family: arial;
             margin: 0;
