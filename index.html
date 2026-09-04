@@ -1,452 +1,266 @@
-<html lang="en-us"><script src="https://pygame-web.github.io/cdn/0.9.3/pythons.js" type=module id="site" data-python="python3.12" data-LINES=42 data-COLUMNS=132 data-os="vtx,snd,gui" async defer>#<!--
-
-print("""
-Loading src from src.apk
-    Pygbag Version : 0.9.3
-    Template Version : 0.9.3
-    Python  : 3.12
-    CDN URL : https://pygame-web.github.io/cdn/0.9.3/
-    Screen  : 1280x720
-    Title   : src
-    Folder  : src
-    Authors : pgw
-    SPDX-License-Identifier: cookiecutter.spdx
-
-""")
-
-import sys
-import asyncio
-import platform
-import json
-from pathlib import Path
-
-# do not rename
-async def custom_site():
-    import embed
-    platform.document.body.style.background = "#7f7f7f"
-
-    platform.window.transfer.hidden = true
-    platform.window.canvas.style.visibility = "visible"
-
-
-    bundle = "src"
-
-    # the C or js loader could do that but be explicit.
-    appdir = Path(f"/data/data/{bundle}") # /data/data/src
-    appdir.mkdir()
-
-
-    # unpack filesystem from compressed archive into work dir
-    if platform.window.location.host.find('.itch.zone')>0:
-        import zipfile
-        async with platform.fopen("src.apk", "rb") as archive:
-            with zipfile.ZipFile(archive) as zip_ref:
-                zip_ref.extractall(appdir.as_posix())
-    else:
-        import tarfile
-        async with platform.fopen("src.tar.gz", "rb") as archive:
-            tar = tarfile.open(fileobj=archive, mode="r:gz")
-            tar.extractall(path=appdir.as_posix(), filter='tar')
-            tar.close()
-
-    # preloader will change to work dir and prepend it to sys.path
-    platform.run_main(PyConfig, loaderhome= appdir / "assets", loadermain=None)
-
-
-    # wait preloading complete : that includes images and wasm compilation of bundled modules
-    while embed.counter()<0:
-        await asyncio.sleep(.1)
-
-    main = appdir / "assets" / "main.py"
-
-    # TODO: test for window.webkitAudioContext and block aio loop until gesture if accessing media manager play
-    # before a gesture is recorded ( touch or click )
-
-    # test/wait user media interaction
-    if not platform.window.MM.UME:
-
-        # now that apk is mounted we have access to font cache
-        # but we need to fill __file__ that is not yet set
-        __import__(__name__).__file__ = main
-
-        # now make a prompt
-        msg  = "Ready to start ! Please click/touch page"
-        platform.window.infobox.innerText = msg
-        print("\n"*4, f"    * Waiting for media user engagement. {msg} *" , "\n"*4)
-
-        while not platform.window.MM.UME:
-            await asyncio.sleep(.1)
-
-    # start async top level machinery if not started and add a console in any case if requested.
-    await TopLevel_async_handler.start_toplevel(platform.shell, console=window.python.config.debug)
-
-    # now that apk is mounted we have access to font cache
-    # but we need to fill __file__/__name__ that are not yet set
-    __import__(__name__).__file__ = main
-
-
-    def ui_callback(pkg):
-        platform.window.infobox.innerText = f"installing {pkg}"
-
-    await shell.source(main, callback=ui_callback)
-
-    # if you don't reach that step
-    # your main.py has an infinite sync loop somewhere !
-
-    platform.window.infobox.style.display = "none"
-    platform.window.config.gui_divider = 1
-    platform.window.window_resize()
-    print("default.tmpl: done")
-
-    shell.interactive()
-
-asyncio.run( custom_site() )
-
-
-
-
-
-
-
-
-
-
-
-
-# BEGIN BLOCK
-#
-# now this is the html part you can (and should) customize
-# It is not mandatory : pygame-script when it reads the first line (also called
-# shebang ) of above code create absolute minimal widget set
-# required for running with default rules
-#
-# do not alter that comment block it is separating python code from html code
-# =============================================================================
-# --></script><head><!--
-//=============================================================================
-//
-//
-//
-//
-//
-//
-//
-
-    {%- if cookiecutter.comment != "" -%}
-{{cookiecutter.comment}}
-    {% endif %}
-
---><script type="application/javascript">
-// END BLOCK
-
-
-
-// this dict is available under PyConfig.config from __main__
-
-config = {
-    xtermjs : "1" ,
-    _sdl2 : "canvas",
-    user_canvas : 0,
-    user_canvas_managed : 0,
-    gui_divider : 2,
-    ume_block : 1,
-    can_close : 0,
-    archive : "src",
-    gui_debug : 2,
-    cdn : "https://pygame-web.github.io/cdn/0.9.3/",
-    autorun : 0,
-    PYBUILD : "3.12",
-    fb_ar   :  1.77,
-    fb_width : "1280",
-    fb_height : "720"
-}
-
-function show_infobox() {
-    infobox.style.display = "block";
-
-    // Measure box
-    const w = infobox.offsetWidth;
-    const h = infobox.offsetHeight;
-
-    // Center in viewport
-    const left = (window.innerWidth - w) / 2;
-    const top = (window.innerHeight - h) / 2;
-
-    infobox.style.left = left + "px";
-    infobox.style.top = top + "px";
-}
-
-</script>
-
-    <title>src</title>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="height=device-height, initial-scale=1.0">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes"/>
-
-
-    <link rel="icon" type="image/png" href="favicon.png" sizes="16x16">
-
-    <style>
-        #status {
-            display: inline-block;
-            vertical-align: top;
-            margin-top: 20px;
-            margin-left: 30px;
-            font-weight: bold;
-            color: rgb(120, 120, 120);
-        }
-
-        #progress {
-            height: 20px;
-            width: 300px;
-        }
-
-        #infobox {
-            position: fixed; /* center relative to viewport */
-            background: green;
-            color: blue;
-            font-weight: bold;
-            padding: 12px 24px;
- /*           display: none; */
-            z-index: 999999;
-        }
-        div.emscripten { text-align: center; }
-        div.emscripten_border { border: 1px solid black; }
-        div.thick_border { border: 4px solid black; }
-
-        /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
-        /* average size of droid screen 470dp x 320dp  */
-        canvas.emscripten {
-            border: 0px none;
-            background-color: transparent;
-            width: 100%;
-            height: 100%;
-            z-index: 5;
-
-            padding: 0;
-            margin: 0 auto;
-
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-        }
-
-        canvas {
-            image-rendering: optimizeSpeed;             /* Navegadores antiguos */
-            image-rendering: -moz-crisp-edges;          /* Firefox */
-            image-rendering: -webkit-optimize-contrast; /* Safari / Chrome antiguo */
-            image-rendering: pixelated;                 /* Estándar moderno */
-            image-rendering: optimize-contrast;         /* CSS3 */
-            -ms-interpolation-mode: nearest-neighbor;   /* IE */
-            width: 100% !important;
-            height: auto !important;
-            max-width: 1024px;                          /* Resolución nativa 1024x768 */
-            display: block;
-            margin: 0 auto;
-        }
-
-        body {
-            font-family: arial;
-            margin: 0;
-            padding: none;
-            background-color:powderblue;
-        }
-
-        .topright{
-           position:absolute;
-           top:0px;
-           right:0px;
-        }
-
-        .bottomright {
-            position:absolute;
-            top: 40%;
-            right: 0px;
-        }
-
-        .center {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .trinfo{
-           position: relative;
-           right: 0px;
-           border: 1px solid black;
-        }
-
-        .framed{
-           position: relative;
-           top: 150px;
-           right: 10px;
-           border: 1px solid black;
-        }
-    </style>
-
-    <script>
-/*
-        if (navigator.serviceWorker)
-            navigator.serviceWorker.register("https://pygame-web.github.io/cdn/0.9.3/pygbag0.9.3.js")
-        else
-            console.warn("Service workers not supported")
-*/
-    </script>
-
-    <script src="https://pygame-web.github.io/cdn/0.9.3//browserfs.min.js"></script>
-
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<!-- GitHub Pages · HTML5 3D · Landscape 100% ventana · Controles híbridos PC/móvil -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#000000">
+<meta name="description" content="FRECUENCIA 1920 3D — El Origen del Broadcasting. Aventura 3D en tercera persona, 60 FPS, WebGL. PC: WASD + ratón. Móvil: joystick táctil.">
+<title>FRECUENCIA 1920 3D — El Origen del Broadcasting · Web</title>
+<link rel="icon" type="image/png" href="./favicon.png">
+<link rel="stylesheet" href="./style.css">
+<script src="./three.min.js"></script>
 </head>
-
 <body>
+<div id="app">
+  <!-- Lienzo HTML5 adaptativo: 100% ventana horizontal, filtrado nítido -->
+  <canvas id="game-canvas"></canvas>
+  <div id="vignette"></div>
+  <div id="scanlines"></div>
 
-    <div id="transfer" align=center>
-<!--        <div class="spinner" id='spinner'></div> -->
-        <div class="emscripten" id="status">Downloading...</div>
-        <div class="emscripten">
-            <progress value="0" max="100" id="progress"></progress>
-        </div>
+  <div id="rotate-msg"><div style="font-size:52px">🔄</div><div><b>Gira tu dispositivo</b><br>Este juego es horizontal (Landscape) 16:9 / 18:9 / 20:9</div></div>
+
+  <!-- BOOT: desbloqueo WebAudio (autoplay policy PC/móvil) -->
+  <div id="boot">
+    <div class="boot-card">
+      <div class="tri-logo" style="justify-content:center">
+        <svg width="64" height="60" viewBox="0 0 60 56"><polygon points="30,3 57,53 3,53" fill="#2a1e0e" stroke="#b8934a" stroke-width="3"/><text x="30" y="42" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffd98a" font-family="Georgia">JO</text></svg>
+      </div>
+      <h1>FRECUENCIA <span class="red">1920</span> 3D</h1>
+      <p class="boot-sub">El Origen del Broadcasting · WebGL 60 FPS<br><span>PC: WASD + ratón · Móvil: joystick táctil</span></p>
+      <button id="boot-btn">🔊 TOCAR PARA INICIAR / CLICK TO PLAY ▶</button>
+      <p class="boot-note">Toca una vez para activar el audio (estática, válvulas, Ragtime 1920).<br>Después elige JUGAR en el menú.</p>
     </div>
+  </div>
 
-
-
-    <canvas class="emscripten" id="canvas"
-width="1px"
-height="1px"
-    oncontextmenu="event.preventDefault()" tabindex=1>
-    </canvas>
-
-    <canvas class="emscripten" id="canvas3d"
-width="1280px"
-height="720px"
-    oncontextmenu="event.preventDefault()" tabindex=1 hidden>
-    </canvas>
-
-    <div id="infobox">Loading, please wait ...</div>
-
-    <div id=html></div>
-
-    <div id=crt  class=bottomright >
-
-        <div id="system" hidden>
-            <div class="button-container">
-                <button id="aiostop" disabled>AIO ⏏︎</button>
-                <button id="aiopaused_true" disabled>AIO ■</button>
-                <button id="aiopaused_false" disabled>AIO ▶</button>
-                <button id="pygame_mixer_music_pause" disabled>Music ■</button>
-            </div>
-
-            <div class="button-container">
-                <div id=load_min>min</div>
-                <div id=load_avg>avg</div>
-                <div id=load_max>max</div>
-              <button id="load_rst" disabled>RESET</button>
-            </div>
-
-            <div id="level">(battery level unknown)</div>
-            <div id="stateBattery">(charging state unknown)</div>
-
-        </div>
-
-        <div id=box class="emscripten_border" hidden=true>
-
-            <div id="info" class="trinfo"></div>
-
-            <iframe id="iframe" class="framed" name="iframe"
-width="470px" height="90%"
-allowtransparency="true"
-style="z-index: 10;"
-style="background: #FFFFFF;"
-frameborder="1"
-                allowfullscreen="true"
-                webkitallowfullscreen="true"
-                msallowfullscreen="true"
-                mozallowfullscreen="true"
-                sandbox="allow-same-origin allow-top-navigation allow-scripts allow-pointer-lock"
-                allow="autoplay; fullscreen *; geolocation; microphone; camera; midi; monetization; xr-spatial-tracking; gamepad; gyroscope; accelerometer; xr; cross-origin-isolated"
-                src="https://pygame-web.github.io/cdn/0.9.3/empty.html"
-                scrolling="yes">
-            </iframe>
-        </div>
-
+  <!-- HUD flotante -->
+  <div id="hud" class="hidden">
+    <div>
+      <div id="zone-label">ZONA 1 · Garaje de Frank Conrad</div>
+      <div id="zone-sub">Pittsburgh, EE. UU. · 1920</div>
     </div>
+    <div id="hud-spacer"></div>
+    <div id="lives"><span class="lbl">TUBOS</span><div class="tube on" id="tube0"></div><div class="tube on" id="tube1"></div><div class="tube on" id="tube2"></div></div>
+    <div id="signal-wrap"><div id="signal-bar-bg"><div id="signal-bar"></div></div><div id="signal-txt">100%</div></div>
+    <div id="score-pill">◉ <span id="score-val">0</span> Hz</div>
+  </div>
+  <div id="objective" class="hidden">🎯 <b>Objetivo:</b> <span id="objective-txt">Dirígete a la MESA 1</span></div>
+  <div id="btn-pause" class="hidden">II</div>
 
+  <!-- Controles híbridos: PC (WASD+ratón) y móvil (joystick + gestures) -->
+  <div id="joy-left" class="hidden"><div class="joy-base"></div><div class="joy-knob" id="knob-left"></div><div class="joy-label">MOVER 360°</div></div>
+  <div id="joy-right" class="hidden"><div class="joy-base"></div><div class="joy-knob" id="knob-right"></div><div class="joy-label">CÁMARA</div></div>
+  <div id="touch-hint" class="hidden">PC: WASD + ratón · Móvil: joystick izq + arrastra der · Acércate al [N] dorado</div>
 
-    <div id="dlg" hidden>
-        <input type="file" id="dlg_multifile" multiple accept="image/*">
-        <label for="dlg_multifile">Select files</label>
+  <button id="btn-action"><span class="ico" id="action-ico">📻</span><span id="action-txt">Inspeccionar</span></button>
+  <div id="toast"></div>
+  <div id="save-toast"><svg width="26" height="24" viewBox="0 0 30 28"><polygon points="15,1 29,27 1,27" fill="none" stroke="#7ec87e" stroke-width="2.5"/><text x="15" y="22" text-anchor="middle" font-size="10" font-weight="bold" fill="#7ec87e">JO</text></svg><span id="save-txt">Punto de guardado</span></div>
+  <div id="fps"></div>
+
+  <!-- MENÚ PRINCIPAL -->
+  <div id="menu" class="screen">
+    <div class="panel">
+      <div class="tri-logo">
+        <svg width="72" height="66" viewBox="0 0 60 56"><polygon points="30,3 57,53 3,53" fill="#2a1e0e" stroke="#b8934a" stroke-width="3"/><polygon points="30,12 50,48 10,48" fill="none" stroke="#d8b96a" stroke-width="1.5"/><text x="30" y="42" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffd98a" font-family="Georgia">JO</text></svg>
+        <div class="who"><b>Jeison Ortiz Ortiz</b> · 26 años · Cali, Colombia<br>Institución Universitaria Antonio José Camacho<br>Comunicación Social · Proyecto Radiofónico · 2026</div>
+      </div>
+      <h1>FRECUENCIA <span class="red">1920</span></h1>
+      <h2>El Origen del Broadcasting · Aventura 3D en Tercera Persona · 60 FPS Web</h2>
+      <div class="divider"></div>
+      <div class="small">Explora el laboratorio de 1920 · Resuelve puzzles mecánicos táctiles · Supera la trivia histórica.<br>Calibra la señal para desbloquear la siguiente zona. ¡Cuida tus 3 tubos de vacío!</div>
+      <div style="height:8px"></div>
+      <button class="btn btn-gold" id="btn-start">▶ &nbsp;SINTONIZAR 1920 · JUGAR 3D</button>
+      <div class="btn-row">
+        <button class="btn btn-dark" id="btn-continue" style="display:none">⟳ CONTINUAR</button>
+        <button class="btn btn-dark" id="btn-credits">★ CRÉDITOS</button>
+      </div>
+      <button class="btn btn-dark" id="btn-help">❔ CÓMO JUGAR</button>
+      <div class="small">PC: WASD/flechas + ratón · Móvil: joysticks táctiles · Landscape · Full HD+ 16:9/18:9/20:9<br>v3D-1.0-web · Low-Poly + Baked Lighting · GitHub Pages HTML5</div>
     </div>
+  </div>
 
-    <div id="pyconsole">
-        <div id="terminal" tabIndex=1 align="left"></div>
+  <!-- AYUDA -->
+  <div id="help" class="screen hidden">
+    <div class="panel">
+      <h1 style="font-size:26px">CÓMO JUGAR</h1>
+      <div class="divider"></div>
+      <div style="text-align:left;font-size:14px;line-height:1.65">
+        🖥️ <b>En PC:</b> <b>WASD / Flechas</b> mover · <b>ratón arrastrado</b> cámara · <b>E</b> interactuar.<br>
+        📱 <b>En móvil:</b> <b>joystick izquierdo flotante</b> 360° · <b>arrastra derecha</b> cámara (gestures táctiles).<br>
+        🔢 <b>Ruta numerada [1][2][3][4]:</b> sigue los marcadores flotantes. <b style="color:#8a6d00">Dorado parpadeante + flecha ▼</b> = siguiente objetivo · <b style="color:#666">Gris 🔒</b> = bloqueado · <b style="color:#2f7d2f">Verde ✓</b> = completado.<br>
+        📋 <b>Tutorial previo:</b> antes de cada puzzle/trivia verás una tarjeta con pasos y el botón <b>¡ENTENDIDO! COMENZAR</b>.<br>
+        🔧 <b>Botón de acción:</b> aparece con ícono retro al acercarte a un objeto.<br>
+        🧩 <b>Loop:</b> 1) Explora en orden → 2) Tutorial + puzzle → 3) Tutorial + trivia A-B-C-D.<br>
+        🎯 <b>Objetivo HUD:</b> la barra superior indica <i>“Objetivo: Dirígete a…”</i>.<br>
+        📡 <b>Frecuencia:</b> +100 Hz por trivia para abrir la puerta. 🔋 3 tubos; sin tubos → <b>Señal Perdida</b>.
+      </div>
+      <div class="divider"></div>
+      <button class="btn btn-gold" id="btn-help-back">◀ VOLVER</button>
     </div>
+  </div>
 
-    <script type="application/javascript">
+  <!-- CRÉDITOS -->
+  <div id="credits" class="screen hidden">
+    <div class="panel">
+      <div class="tri-logo">
+        <svg width="90" height="82" viewBox="0 0 60 56"><polygon points="30,3 57,53 3,53" fill="#2a1e0e" stroke="#b8934a" stroke-width="3"/><text x="30" y="42" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffd98a" font-family="Georgia">JO</text></svg>
+      </div>
+      <h1 style="font-size:24px">FICHA TÉCNICA Y AUTOR</h1>
+      <div class="divider"></div>
+      <div class="stat-row"><span><b>Diseño y desarrollo 3D</b></span><span>Jeison Ortiz Ortiz</span></div>
+      <div class="stat-row"><span>Edad / Ubicación</span><span>26 años · Cali, Colombia</span></div>
+      <div class="stat-row"><span>Institución</span><span>Antonio José Camacho</span></div>
+      <div class="stat-row"><span>Carrera / Asignatura</span><span>Comunicación Social · Proyecto Radiofónico</span></div>
+      <div class="stat-row"><span>Motor / Render</span><span>WebGL + Three.js · Low-Poly · Baked Lighting · 60 FPS</span></div>
+      <div class="stat-row"><span>Plataforma web</span><span>GitHub Pages HTML5 · PC + Móvil landscape</span></div>
+      <div class="small" style="margin-top:8px">Todos los derechos reservados © 2026 · Logo triangular del autor integrado en menú, guardado y final.</div>
+      <div class="divider"></div>
+      <button class="btn btn-gold" id="btn-credits-back">◀ VOLVER AL MENÚ</button>
+    </div>
+  </div>
 
-    globalThis.__canvas_resized = (self, ecw, ech) => {
-        console.warn("TODO: panda3d canvas monitor", self, ecw, ech)
-    }
+  <!-- PUZZLE Z1 -->
+  <div id="puzzle1" class="screen hidden">
+    <div class="panel">
+      <h1 style="font-size:22px">🔧 CALIBRAR TRANSMISOR 8XK</h1>
+      <div class="small"><i>Garaje de Frank Conrad · Elimina el ruido blanco moviendo el dial hasta la zona verde (88%).</i></div>
+      <canvas id="wave-canvas" width="640" height="110"></canvas>
+      <div style="font-size:15px"><b>Dial de frecuencia: <span id="p1-val">50</span>%</b> · Claridad: <b id="p1-q">0%</b></div>
+      <input type="range" min="0" max="100" value="50" class="puzzle-slider" id="p1-slider">
+      <div class="small">🟩 Zona nítida: 82–94% · PC: ratón/teclado · Móvil: táctil</div>
+      <div class="btn-row"><button class="btn btn-dark" id="p1-cancel">SALIR</button><button class="btn btn-gold" id="p1-ok">ESTABILIZAR ONDA ▶</button></div>
+    </div>
+  </div>
 
-    async function custom_onload(debug_hidden) {
-        // this is called before anything python is loaded
-        // make your js customization here
-        console.log(__FILE__, "custom_onload")
+  <!-- PUZZLE Z2 -->
+  <div id="puzzle2" class="screen hidden">
+    <div class="panel">
+      <h1 style="font-size:22px">📡 KDKA EN VIVO · ¡AL AIRE!</h1>
+      <div class="small"><i>Noche electoral Harding vs. Cox · Alinea <b>frecuencia (≈75%)</b> y <b>potencia (≈65%)</b> antes del tiempo.</i></div>
+      <div id="timer-big">⏱ 30</div>
+      <div id="mixer-bars">
+        <div><div class="mbar" id="mb-f"><div class="zone-ok" id="zo-f"></div><div class="fill" id="fill-f"></div></div><div class="small"><b>FRECUENCIA</b><br><span id="v-f">50%</span></div><input type="range" min="0" max="100" value="50" class="puzzle-slider" id="p2-freq" style="width:130px"></div>
+        <div><div class="mbar" id="mb-p"><div class="zone-ok" id="zo-p"></div><div class="fill" id="fill-p"></div></div><div class="small"><b>POTENCIA</b><br><span id="v-p">50%</span></div><input type="range" min="0" max="100" value="50" class="puzzle-slider" id="p2-pow" style="width:130px"></div>
+      </div>
+      <div style="font-size:15px">Estabilidad de emisión: <b id="p2-stab">0%</b></div>
+      <div class="btn-row"><button class="btn btn-dark" id="p2-cancel">SALIR</button><button class="btn btn-gold" id="p2-ok">ABRIR TRANSMISIÓN ▶</button></div>
+    </div>
+  </div>
 
-        pyconsole.hidden = debug_hidden
-        system.hidden = debug_hidden
-        transfer.hidden = debug_hidden
-        info.hidden = debug_hidden
-        box.hidden =  debug_hidden
+  <!-- PUZZLE Z3 -->
+  <div id="puzzle3" class="screen hidden">
+    <div class="panel">
+      <h1 style="font-size:22px">🎭 PARCHES DE PARSIFAL · 5W</h1>
+      <div class="small"><i>Azotea del Teatro Coliseo · Toca un <b>cable</b> y luego su <b>clavija</b>.<br>FASE A→MIC · FASE B→ANTENA · FASE C→TIERRA</i></div>
+      <div class="small"><b>Cables:</b></div>
+      <div class="patch-grid" id="cables"></div>
+      <div class="small"><b>Clavijas del transmisor:</b></div>
+      <div class="patch-grid" id="slots"></div>
+      <div class="small" id="p3-status">Conectados: 0/3</div>
+      <div class="btn-row"><button class="btn btn-dark" id="p3-cancel">SALIR</button><button class="btn btn-dark" id="p3-reset">↺ REINICIAR</button><button class="btn btn-gold" id="p3-ok">TRANSMITIR ÓPERA ▶</button></div>
+    </div>
+  </div>
 
-        show_infobox()
-    }
+  <!-- TUTORIAL -->
+  <div id="tutorial" class="screen hidden">
+    <div class="panel" id="tutorial-panel">
+      <div class="small" style="color:#a93226;font-weight:bold;letter-spacing:1px">📋 TARJETA INFORMATIVA · LEE ANTES DE EMPEZAR</div>
+      <h1 style="font-size:22px" id="tut-title">Instrucciones: Calibración de Onda</h1>
+      <div class="divider"></div>
+      <div style="text-align:left;font-size:14.5px;line-height:1.7" id="tut-steps"></div>
+      <div class="divider"></div>
+      <button class="btn btn-gold" id="tut-btn">¡ENTENDIDO! COMENZAR ▶</button>
+    </div>
+  </div>
 
-    function custom_prerun(){
-        // no python main and no (MEMFS + VFS) yet.
-        console.log(__FILE__, "custom_prerun")
+  <!-- TRIVIA -->
+  <div id="trivia" class="screen hidden">
+    <div class="panel" id="trivia-panel">
+      <div class="small" id="trivia-kicker" style="color:#a93226;font-weight:bold;letter-spacing:1px">MÓDULO DE EVALUACIÓN · HISTORIA</div>
+      <div id="trivia-q"></div>
+      <div id="trivia-ctx"></div>
+      <div id="trivia-opts"></div>
+      <div id="trivia-feedback"></div>
+      <button class="btn btn-gold" id="trivia-next" style="display:none">CONTINUAR ▶</button>
+    </div>
+  </div>
 
-    }
+  <!-- GAME OVER -->
+  <div id="gameover" class="screen hidden">
+    <div class="panel" id="gameover-panel">
+      <div style="font-size:56px">📻</div>
+      <h1 style="font-size:34px;color:#8f2f2f">SEÑAL PERDIDA</h1>
+      <div class="small"><i>Interferencia total · Tus 3 tubos se han fundido entre chispas y estática.</i></div>
+      <div class="divider"></div>
+      <div class="stat-row"><span>Zona alcanzada</span><b id="go-zone">Zona 1</b></div>
+      <div class="stat-row"><span>Puntos de frecuencia</span><b id="go-score">0 Hz</b></div>
+      <div class="divider"></div>
+      <button class="btn btn-gold" id="btn-retry-zone">⟳ REINICIAR ZONA ACTUAL</button>
+      <button class="btn btn-dark" id="btn-retry-l1">⏮ REINICIAR NIVEL 1</button>
+      <button class="btn btn-dark" id="btn-go-menu">MENÚ PRINCIPAL</button>
+    </div>
+  </div>
 
-    function custom_postrun(){
-        // python main and no VFS filesystem yet.
-        console.log(__FILE__, "custom_postrun")
+  <!-- VICTORIA -->
+  <div id="victory" class="screen hidden">
+    <div class="panel">
+      <div class="tri-logo">
+        <svg width="84" height="78" viewBox="0 0 60 56"><polygon points="30,3 57,53 3,53" fill="#2a1e0e" stroke="#b8934a" stroke-width="3"/><polygon points="30,12 50,48 10,48" fill="none" stroke="#7ec87e" stroke-width="1.5"/><text x="30" y="42" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffd98a" font-family="Georgia">JO</text></svg>
+        <div class="who"><b>Jeison Ortiz Ortiz</b><br>UNIAJC · Comunicación Social<br>Proyecto Radiofónico 2026</div>
+      </div>
+      <h1 style="font-size:30px">¡SEÑAL <span class="red">COMPLETA!</span></h1>
+      <div class="small"><i>Has restaurado la cadena de la radiodifusión — 1920</i></div>
+      <div class="divider"></div>
+      <div class="stat-row"><span>★ Garaje Conrad</span><span>El Audión amplifica la voz ✓</span></div>
+      <div class="stat-row"><span>★ KDKA electoral</span><span>Harding vs. Cox en vivo ✓</span></div>
+      <div class="stat-row"><span>★ Azotea Coliseo</span><span>Parsifal cruza el éter ✓</span></div>
+      <div class="stat-row"><span>◉ Frecuencia total</span><b id="win-score">300 Hz</b></div>
+      <div class="stat-row"><span>🔋 Tubos restantes</span><b id="win-lives">3/3</b></div>
+      <div class="small" style="margin-top:8px"><i>En 1920 la radio dejó de ser telégrafo sin hilos para volverse medio de masas.</i></div>
+      <div class="divider"></div>
+      <div class="btn-row"><button class="btn btn-dark" id="btn-win-menu">MENÚ</button><button class="btn btn-gold" id="btn-win-again">↻ JUGAR DE NUEVO</button></div>
+    </div>
+  </div>
 
-    }
-
-    function debug() {
-        // allow to gain access to dev tools from js console
-        // but only on desktop. difficult to reach when in iframe
-        python.config.debug = true
-        custom_onload(false)
-        Module.PyRun_SimpleString("shell.uptime()")
-        window_resize()
-    }
-
-    function info_inline(data){
-        document.getElementById("info").innerHTML = data
-    }
-
-    function info_online(url) {
-        // display info about current APK
-        fetch( url /*, options */)
-            .then((response) => response.text())
-            .then((html) => {
-                info_inline(html);
-        })
-        .catch((error) => {
-            console.warn(error);
-        });
-    }
-
-    function frame_online(url) {
-        window.frames["iframe"].location = url;
-    }
-
-    </script>
-
+  <!-- PAUSA -->
+  <div id="pause" class="screen hidden">
+    <div class="panel">
+      <h1 style="font-size:26px">PAUSA</h1>
+      <div class="small" id="pause-info">Zona 1 · 0 Hz</div>
+      <div class="divider"></div>
+      <button class="btn btn-gold" id="btn-resume">▶ CONTINUAR</button>
+      <button class="btn btn-dark" id="btn-pause-menu">MENÚ PRINCIPAL</button>
+    </div>
+  </div>
+</div>
+<script>
+/* Boot GitHub Pages: desbloqueo WebAudio (click/touch) antes del menú */
+(function(){
+  var boot=document.getElementById('boot'),btn=document.getElementById('boot-btn');
+  function dismiss(){
+    try{
+      var AC=window.AudioContext||window.webkitAudioContext;
+      if(AC){
+        window._ac=window._ac||new AC();
+        if(window._ac.state==='suspended')window._ac.resume();
+      }
+    }catch(e){}
+    if(boot){boot.style.opacity='0';boot.style.transition='opacity .35s';setTimeout(function(){boot.style.display='none';},380);}
+    document.removeEventListener('pointerdown',dismiss);
+  }
+  if(btn)btn.addEventListener('click',dismiss);
+  document.addEventListener('pointerdown',function once(){
+    if(boot&&boot.style.display!=='none'){/* solo pre-inicializa, no oculta hasta botón */}
+  });
+  // El botón es el gesto válido; también permitir tocar fuera del botón una vez
+  if(boot)boot.addEventListener('touchstart',function(e){
+    if(e.target&&e.target.id==='boot-btn')return;
+  },{passive:true});
+})();
+</script>
+<script src="./game.js"></script>
 </body>
 </html>
