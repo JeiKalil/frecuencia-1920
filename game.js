@@ -20,9 +20,9 @@ var ZONES=[
   intro:'Halla las válvulas termoiónicas y el micrófono de carbón. Calibra el 8XK.',
   keyId:'audion',
   objs:[
-   {id:'chispa',icon:'⚡',label:'Inspeccionar Transmisor',name:'Transmisor de chispas (obsoleto)',info:'Solo pulsos ásperos Morse. No sirve para voz.',step:1,station:'MESA 1',art:{k:'diagram',t:'Patente del transmisor 8XK',c:'Diagrama original del radiofórmula 8XK de Conrad: del chisporroteo Morse a la onda continua que haría posible la voz.'}},
-   {id:'audion',icon:'🔧',label:'Calibrar Transmisor 8XK',name:'Válvula Audión ★ CLAVE',info:'El corazón que amplifica voz y música continua.',step:2,station:'MESA 2',art:{k:'valves',t:'Válvula Audión y primeros discos',c:'Receptor de válvulas Audión junto a los discos de vinilo que Conrad transmitía desde su garaje en 1920.'}},
-   {id:'micro',icon:'🎙️',label:'Inspeccionar Micrófono',name:'Micrófono de carbón',info:'Captará voz y música cuando el transmisor esté listo.',step:3,station:'MESA 3',art:{k:'portrait',t:'Frank Conrad en su taller',c:'Retrato de Frank Conrad, ingeniero de Westinghouse, experimentando en su garaje de Pittsburgh en 1920.'}},
+   {id:'chispa',icon:'⚡',label:'Inspeccionar Transmisor',name:'Transmisor de chispas (obsoleto)',info:'Solo pulsos ásperos Morse. No sirve para voz.',step:1,station:'MESA 1',art:{k:'diagram',t:'Estación 8XK de Conrad · 1920',c:'Fotografía de la estación 8XK en el garaje de Conrad (1920): del chisporroteo Morse a la onda continua que haría posible la voz.'}},
+   {id:'audion',icon:'🔧',label:'Calibrar Transmisor 8XK',name:'Válvula Audión ★ CLAVE',info:'El corazón que amplifica voz y música continua.',step:2,station:'MESA 2',art:{k:'valves',t:'El primer triodo Audión · 1906',c:'Fotografía del primer triodo Audión de De Forest (1906): el tubo que permitió amplificar la voz y que Conrad usó en 1920.'}},
+   {id:'micro',icon:'🎙️',label:'Inspeccionar Micrófono',name:'Micrófono de carbón',info:'Captará voz y música cuando el transmisor esté listo.',step:3,station:'MESA 3',art:{k:'portrait',t:'Frank Conrad · 1921',c:'Retrato fotográfico de Frank Conrad, ingeniero de Westinghouse y pionero de la radiodifusión.'}},
    {id:'puerta',icon:'🚪',label:'Abrir puerta KDKA',name:'Puerta a KDKA',info:'Requiere +100 Hz de frecuencia.',step:4,station:'PUERTA KDKA'}
   ],
   trivia:{q:'¿Qué avance permitió transmitir voz y música continua en 1920 en lugar de solo pulsos Morse?',
@@ -34,9 +34,9 @@ var ZONES=[
   intro:'Prepara la antena de transmisión en vivo. Alinea frecuencia y potencia antes del aire.',
   keyId:'consola',
   objs:[
-   {id:'antena',icon:'📶',label:'Reparar Antena',name:'Antena de transmisión',info:'Sin antena no hay alcance en vivo.',step:1,station:'ANTENA 1',art:{k:'transmitter',t:'Transmisor Westinghouse de alta potencia',c:'Plano y foto del transmisor de alta potencia de Westinghouse que puso a KDKA en el aire.'}},
-   {id:'consola',icon:'🎚️',label:'Alinear Frecuencia',name:'Consola KDKA ★ CLAVE',info:'Frecuencia + potencia en tiempo real antes del aire.',step:2,station:'CONSOLA 2',art:{k:'kdka',t:'Operadores KDKA · Noche electoral 1920',c:'Los operadores de KDKA transmitiendo los resultados Harding vs. Cox el 2 de noviembre de 1920.'}},
-   {id:'teletipo',icon:'📰',label:'Inspeccionar Teletipo',name:'Teletipo electoral',info:'Escupe resultados Harding vs. Cox.',step:3,station:'TELETIPO 3',art:{k:'newspaper',t:'Prensa: nace el broadcasting',c:'Recortes de periódicos de la época anunciando el nacimiento del broadcasting comercial masivo.'}},
+   {id:'antena',icon:'📶',label:'Reparar Antena',name:'Antena de transmisión',info:'Sin antena no hay alcance en vivo.',step:1,station:'ANTENA 1',art:{k:'transmitter',t:'Transmisores Audión · c.1916',c:'Fotografía de los primeros transmisores Audión AM (c.1916): la misma familia tecnológica de válvulas que Westinghouse llevó a KDKA.'}},
+   {id:'consola',icon:'🎚️',label:'Alinear Frecuencia',name:'Consola KDKA ★ CLAVE',info:'Frecuencia + potencia en tiempo real antes del aire.',step:2,station:'CONSOLA 2',art:{k:'kdka',t:'Estudio de KDKA · 1922',c:'Fotografía del estudio de KDKA (diciembre de 1922), heredero directo de la choza donde se transmitió la noche electoral Harding vs. Cox en 1920.'}},
+   {id:'teletipo',icon:'📰',label:'Inspeccionar Teletipo',name:'Teletipo electoral',info:'Escupe resultados Harding vs. Cox.',step:3,station:'TELETIPO 3',art:{k:'newspaper',fy:0,t:'Prensa: elecciones por radio · 1920',c:'Recorte real del Saint Louis Post-Dispatch (3-nov-1920) sobre los resultados electorales recibidos por radioteléfono: el broadcasting llegaba a la prensa.'}},
    {id:'puerta',icon:'🚪',label:'Subir a la Azotea',name:'Salida a Buenos Aires',info:'Requiere +200 Hz acumulados.',step:4,station:'SALIDA AZOTEA'}
   ],
   trivia:{q:'¿Qué hito convirtió a KDKA el 2 de noviembre de 1920 en referente del broadcasting comercial?',
@@ -48,9 +48,9 @@ var ZONES=[
   intro:'Con Los Locos de la Azotea instala el transmisor de 5W. Conecta Parsifal.',
   keyId:'parche',
   objs:[
-   {id:'tx5w',icon:'📻',label:'Inspeccionar Transmisor',name:'Transmisor de 5 watts',info:'Armado con restos de un barco de guerra.',step:1,station:'EQUIPO 1',art:{k:'tx5w',t:'Transmisor de 5 watts en la azotea',c:'Foto del transmisor de 5 watts montado en la azotea del Teatro Coliseo por Los Locos.'}},
-   {id:'parche',icon:'🔌',label:'Conectar Parches',name:'Circuito de parches ★ CLAVE',info:'Parchea FASE A/B/C para emitir Parsifal de Wagner.',step:2,station:'PARCHE 2',art:{k:'locos',t:'Los Locos de la Azotea (1920)',c:'Enrique Susini, César Guerrico, Luis Romero Carranza y Miguel Mujica, pioneros de la radio en América Latina.'}},
-   {id:'micro2',icon:'🎙️',label:'Colgar Micrófono',name:'Micrófono sobre el escenario',info:'Captará a los cantantes de Parsifal.',step:3,station:'MIC 3',art:{k:'poster',t:'Parsifal en el Coliseo · 1920',c:'Programa de la función inaugural: la ópera Parsifal de Wagner, primera emisión artística al público general.'}},
+   {id:'tx5w',icon:'📻',label:'Inspeccionar Transmisor',name:'Transmisor de 5 watts',info:'Armado con restos de un barco de guerra.',step:1,station:'EQUIPO 1',art:{k:'tx5w',t:'Teatro Coliseo · Buenos Aires',c:'Fotografía del Teatro Coliseo hacia 1910: en su azotea, Los Locos instalaron en 1920 el transmisor de 5 vatios.'}},
+   {id:'parche',icon:'🔌',label:'Conectar Parches',name:'Circuito de parches ★ CLAVE',info:'Parchea FASE A/B/C para emitir Parsifal de Wagner.',step:2,station:'PARCHE 2',art:{k:'locos',t:'Pioneros de Radio Argentina · 1920',c:'Fotografía de los pioneros de Radio Argentina: Susini, Guerrico, Romero Carranza y Mujica, Los Locos de la Azotea.'}},
+   {id:'micro2',icon:'🎙️',label:'Colgar Micrófono',name:'Micrófono sobre el escenario',info:'Captará a los cantantes de Parsifal.',step:3,station:'MIC 3',art:{k:'poster',t:'Parsifal · Ilustración de época',c:'Ilustración de época de Parsifal de Wagner, la ópera transmitida al público general el 27 de agosto de 1920.'}},
    {id:'puerta',icon:'🚪',label:'Ir a la Galería Legado',name:'Galería del legado',info:'Requiere +300 Hz acumulados.',step:4,station:'GALERÍA LEGADO'}
   ],
   trivia:{q:'El 27 de agosto de 1920 en Argentina, ¿qué se transmitió al público general con 5 vatios?',
@@ -63,7 +63,7 @@ var ZONES=[
   keyId:'',
   objs:[
    {id:'gal1',icon:'🖼️',label:'Inspeccionar Infografía',name:'Evolución de frecuencias',info:'Del Audión a la FM, del transistor al streaming.',step:1,station:'PANEL 1',art:{k:'evo',t:'1920 → Hoy: evolución de frecuencias',c:'Infografía vintage: onda media, FM, transistores y radio digital. Todo nació en 1920.'}},
-   {id:'gal2',icon:'🖼️',label:'Inspeccionar Cabina',name:'Primeras cabinas profesionales',info:'Locutorio de los años 20: fieltro, carbón y relojes.',step:2,station:'PANEL 2',art:{k:'cabin',t:'Cabinas de radio · Años 20',c:'Fotografía de archivo de las primeras cabinas profesionales: micrófono de carbón y paredes insonorizadas.'}},
+   {id:'gal2',icon:'🖼️',label:'Inspeccionar Cabina',name:'Primeras cabinas profesionales',info:'Locutorio de los años 20: fieltro, carbón y relojes.',step:2,station:'PANEL 2',art:{k:'cabin',t:'Micrófono de carbón · Años 20',c:'Fotografía de un micrófono de carbón Western Electric de doble botón, como los de las primeras cabinas profesionales de los años 20.'}},
    {id:'gal3',icon:'🖼️',label:'Inspeccionar Legado',name:'Del Audión al transistor',info:'Un siglo de éter en una pared.',step:3,station:'PANEL 3',art:{k:'legacy',t:'Legado: un siglo de éter',c:'Comparativa del legado: la válvula que encendió 1920 y las voces que aún viajan por el aire.'}},
    {id:'puerta',icon:'🏆',label:'Emitir Señal Final',name:'Antena final',info:'Inspecciona los 3 paneles y emite.',step:4,station:'ANTENA FINAL'}
   ],
@@ -342,8 +342,38 @@ function addWall(x,z,w,d,h,color){
  colliders.push({x0:x-w/2,x1:x+w/2,z0:z-d/2,z1:z+d/2});
  return m;
 }
-/* ---------- WALL ART: marcos vintage + albedo sepia (aspecto original) ---------- */
-var ART_ASPECT={portrait:0.75,diagram:1.33,valves:1.33,kdka:1.33,newspaper:1.33,transmitter:1.33,locos:1.33,poster:0.75,tx5w:1.33,evo:1.5,cabin:1.33,legacy:1.33};
+/* ---------- WALL ART: marcos vintage + FOTOS REALES (albedo sepia, aspecto original) ---------- */
+var ART_ASPECT={portrait:0.75,diagram:1.33,valves:1.33,kdka:1.33,newspaper:1.1,transmitter:1.33,locos:1.26,poster:0.8,tx5w:1.33,evo:1.5,cabin:1.33,legacy:1.33,
+ family:1.39,spark:1.53,phones:1.45,deforest:0.79,armstrong:0.76,orchestra:1.34,tower:0.78,receiver:1.66,superhet:2.45,superregen:0.81,
+ horn:0.5,wagner:0.6,marconi:0.72,home:0.73,hall:0.6,fm:1.36,blackboard:1.0,carbon:2.38,store:1.32,wife:0.52,
+ oscillator:1.39,concert1912:0.9,pasystem:1.47,fieldkit:1.32,bayreuth1900:1.5,inventors48:1.26,hangmic:1.0,console:1.5};
+// Fotografía histórica real por motivo (img/ offline en APK y Pages). Sin foto → placeholder vectorial.
+var ART_PHOTO={diagram:'station8xk.jpg',valves:'audion.jpg',portrait:'conrad.jpg',kdka:'kdka.jpg',
+ newspaper:'press1920.jpg',transmitter:'transmitter.jpg',locos:'locos.gif',tx5w:'coliseo.jpg',
+ poster:'parsifal.jpg',cabin:'mic1920.jpg',
+ family:'family1920.jpg',spark:'spark1913.jpg',phones:'phones1909.jpg',deforest:'deforest.jpg',armstrong:'armstrong.jpg',
+ orchestra:'orchestra20s.jpg',tower:'towerwbz.jpg',receiver:'crystalad.jpg',superhet:'superhet1920.jpg',superregen:'superregen.jpg',
+ horn:'horn1920.jpg',wagner:'wagner1862.jpg',marconi:'marconi1909.jpg',home:'home1923.jpg',hall:'coliseo1953.jpg',
+ fm:'fm1935.jpg',blackboard:'blackboard.jpg',carbon:'carbon1919.jpg',store:'store1926.jpg',wife:'portable1923.jpg',
+ oscillator:'oscillator.png',concert1912:'concert1912.jpg',pasystem:'pasystem.jpg',fieldkit:'fieldkit.jpg',
+ bayreuth1900:'bayreuth1900.jpg',inventors48:'inventors48.jpg'};
+var PhotoCache={}; // archivo -> Image (o 'loading'), con cola de repintados pendientes
+function upgradeArtTexture(art,repaint){
+ var file=ART_PHOTO[art.k];
+ if(!file)return;
+ var cached=PhotoCache[file];
+ if(cached&&cached!=='loading'&&cached.complete&&cached.naturalWidth){try{repaint(cached);}catch(e){}return;}
+ if(cached==='loading'){(PhotoCache[file+'_q']=PhotoCache[file+'_q']||[]).push(repaint);return;}
+ PhotoCache[file]='loading';PhotoCache[file+'_q']=[repaint];
+ var img=new Image();
+ img.onload=function(){
+  PhotoCache[file]=img;
+  var q=PhotoCache[file+'_q']||[];PhotoCache[file+'_q']=[];
+  for(var i=0;i<q.length;i++){try{q[i](img);}catch(e){}}
+ };
+ img.onerror=function(){PhotoCache[file]=null;PhotoCache[file+'_q']=[];}; // conserva vectorial
+ img.src='img/'+file; // relativo: file:///android_asset/ en APK, ./ en Pages
+}
 function grainVignette(g,W,H){
  var i;for(i=0;i<220;i++){g.fillStyle='rgba(90,70,40,'+(Math.random()*0.08)+')';g.fillRect(Math.random()*W,Math.random()*H,1.5,1.5);}
  var gr=g.createRadialGradient(W/2,H/2,Math.min(W,H)*0.35,W/2,H/2,Math.max(W,H)*0.75);
@@ -359,14 +389,14 @@ function paintArt(g,kind,W,H,label){
  g.fillText(label||'',W/2,H-11);
  var ink='#3a2c1a',soft='#6b5230',gold='#8a6d2a';
  g.strokeStyle=ink;g.fillStyle=ink;
- if(kind==='portrait'){
+  if(kind==='portrait'||kind==='deforest'||kind==='armstrong'||kind==='wagner'||kind==='marconi'||kind==='fieldkit'){
   g.fillStyle='#c9b183';g.beginPath();g.arc(W/2,H*0.36,Math.min(W,H)*0.17,0,Math.PI*2);g.fill();
   g.fillStyle='#8a6f45';g.beginPath();g.arc(W/2,H*0.33,Math.min(W,H)*0.125,0,Math.PI*2);g.fill();
   g.fillStyle='#4a3823';g.fillRect(W*0.28,H*0.62,W*0.44,H*0.24);
   g.fillStyle='#2a2118';g.fillRect(W*0.44,H*0.62,W*0.12,H*0.24);
   g.strokeStyle=soft;g.lineWidth=2;g.strokeRect(W*0.14,H*0.08,W*0.72,H*0.78);
   g.font='italic 11px Georgia';g.fillStyle=soft;g.fillText('taller · 1920',W/2,H*0.16);
- }else if(kind==='diagram'){
+ }else if(kind==='diagram'||kind==='oscillator'){
   g.strokeStyle=ink;g.lineWidth=2;
   g.strokeRect(W*0.12,H*0.14,W*0.76,H*0.6);
   g.beginPath();g.moveTo(W*0.12,H*0.44);g.lineTo(W*0.88,H*0.44);g.stroke();
@@ -375,7 +405,7 @@ function paintArt(g,kind,W,H,label){
   for(var i=0;i<3;i++){g.beginPath();g.moveTo(W*(0.24+i*0.13),H*0.6);g.lineTo(W*(0.24+i*0.13),H*0.68);g.stroke();}
   g.font='bold 13px Georgia';g.fillText('8XK',W/2,H*0.3);
   g.font='10px Georgia';g.fillStyle=soft;g.fillText('ANT · TIERRA',W/2,H*0.7);
- }else if(kind==='valves'){
+ }else if(kind==='valves'||kind==='carbon'){
   for(var v=0;v<3;v++){var x=W*(0.25+v*0.25);
    g.fillStyle='#8a6f45';g.fillRect(x-14,H*0.62,28,10);
    g.fillStyle='#efe0b8';g.fillRect(x-11,H*0.3,22,H*0.32);
@@ -389,18 +419,18 @@ function paintArt(g,kind,W,H,label){
    g.fillStyle='#4a3823';g.fillRect(px-16,H*0.55,32,H*0.1);}
   g.fillStyle='#a93226';g.fillRect(W*0.36,H*0.12,W*0.28,20);
   g.fillStyle='#fff';g.font='bold 12px Georgia';g.fillText('ON AIR',W/2,H*0.12+15);
- }else if(kind==='newspaper'){
+ }else if(kind==='newspaper'||kind==='concert1912'){
   g.fillStyle='#2a2118';g.font='bold 15px Georgia';g.fillText('RADIO DAILY',W/2,H*0.18);
   g.fillRect(W*0.1,H*0.24,W*0.8,2);
   for(var c=0;c<3;c++){var cx=W*(0.14+c*0.26);
    g.fillStyle='#6b5230';for(var l=0;l<6;l++)g.fillRect(cx,H*(0.3+l*0.07),W*0.2,3);}
   g.fillStyle='#a93226';g.font='bold 11px Georgia';g.fillText('¡BROADCASTING!',W/2,H*0.82);
- }else if(kind==='transmitter'){
+ }else if(kind==='transmitter'||kind==='superhet'||kind==='superregen'||kind==='fm'||kind==='pasystem'){
   g.fillStyle='#4a3823';g.fillRect(W*0.2,H*0.45,W*0.3,H*0.3);
   g.fillStyle='#2a2118';g.fillRect(W*0.55,H*0.2,8,H*0.55);
   g.strokeStyle=soft;for(var a=0;a<3;a++){g.beginPath();g.moveTo(W*0.55+4,H*(0.3+a*0.1));g.lineTo(W*0.55+34-a*8,H*(0.3+a*0.1));g.stroke();}
   g.fillStyle=gold;g.beginPath();g.arc(W*0.55+4,H*0.18,5,0,Math.PI*2);g.fill();
- }else if(kind==='locos'){
+ }else if(kind==='locos'||kind==='inventors48'){
   g.strokeStyle=soft;g.beginPath();g.moveTo(W*0.08,H*0.7);g.lineTo(W*0.92,H*0.7);g.stroke();
   for(var q=0;q<4;q++){var qx=W*(0.2+q*0.2);
    g.fillStyle='#8a6f45';g.beginPath();g.arc(qx,H*0.5,13,0,Math.PI*2);g.fill();
@@ -430,6 +460,83 @@ function paintArt(g,kind,W,H,label){
   g.fillStyle='#c9b183';g.beginPath();g.arc(W*0.62,H*0.42,12,0,Math.PI*2);g.fill();
   g.fillStyle='#4a3823';g.fillRect(W*0.6,H*0.55,5,H*0.14);
   g.strokeStyle='#e8d9b0';g.beginPath();g.arc(W*0.82,H*0.28,10,0,Math.PI*2);g.stroke();
+ }else if(kind==='family'){
+  g.fillStyle='#4a3823';g.fillRect(W*0.3,H*0.45,W*0.4,H*0.25);
+  g.fillStyle='#8a6f45';
+  for(var f=0;f<3;f++){g.beginPath();g.arc(W*(0.36+f*0.14),H*0.38,11,0,Math.PI*2);g.fill();}
+  g.fillStyle='#2a2118';g.fillRect(W*0.42,H*0.5,W*0.16,H*0.2);
+ }else if(kind==='spark'){
+  g.strokeStyle=ink;g.lineWidth=2;
+  for(var sp=0;sp<2;sp++){var sx=W*(0.28+sp*0.3);
+   g.strokeRect(sx-22,H*0.3,44,H*0.35);
+   g.beginPath();g.moveTo(sx-14,H*0.42);g.lineTo(sx-6,H*0.5);g.lineTo(sx-14,H*0.58);g.stroke();
+   g.beginPath();g.moveTo(sx+14,H*0.42);g.lineTo(sx+6,H*0.5);g.lineTo(sx+14,H*0.58);g.stroke();}
+ }else if(kind==='phones'){
+  g.strokeStyle=ink;g.lineWidth=4;g.beginPath();g.arc(W/2,H*0.62,W*0.24,Math.PI,0);g.stroke();
+  g.fillStyle='#4a3823';
+  g.fillRect(W*0.2,H*0.5,W*0.09,H*0.2);g.fillRect(W*0.71,H*0.5,W*0.09,H*0.2);
+  g.strokeStyle=soft;g.lineWidth=1.5;
+  g.beginPath();g.moveTo(W*0.24,H*0.7);g.quadraticCurveTo(W*0.3,H*0.85,W*0.5,H*0.82);g.stroke();
+ }else if(kind==='stage'||kind==='orchestra'){
+  g.fillStyle='#6b3a2a';g.fillRect(W*0.08,H*0.12,W*0.84,H*0.12);
+  g.fillStyle='#8a6f45';
+  for(var mu=0;mu<4;mu++){g.beginPath();g.arc(W*(0.24+mu*0.17),H*0.5,10,0,Math.PI*2);g.fill();
+   g.fillRect(W*(0.24+mu*0.17)-8,H*0.58,16,14);}
+  g.fillStyle='#2a2118';g.beginPath();g.arc(W*0.5,H*0.32,12,0,Math.PI*2);g.fill();
+  g.fillRect(W*0.48,H*0.36,4,H*0.3);
+ }else if(kind==='mast'||kind==='tower'){
+  g.strokeStyle=ink;g.lineWidth=2.5;
+  g.beginPath();g.moveTo(W*0.5,H*0.85);g.lineTo(W*0.42,H*0.15);g.moveTo(W*0.5,H*0.85);g.lineTo(W*0.58,H*0.15);g.stroke();
+  for(var cr=0;cr<5;cr++){var cy=H*(0.78-cr*0.12);
+   g.beginPath();g.moveTo(W*(0.5-(0.5-0.42)*(0.85-0.78+cr*0.12)/0.7),cy);g.lineTo(W*(0.5+(0.5-0.42)*(0.85-0.78+cr*0.12)/0.7),cy);g.stroke();}
+  g.strokeStyle=soft;g.lineWidth=1.5;
+  g.beginPath();g.moveTo(W*0.42,H*0.15);g.quadraticCurveTo(W*0.2,H*0.3,W*0.08,H*0.6);g.stroke();
+  g.beginPath();g.moveTo(W*0.58,H*0.15);g.quadraticCurveTo(W*0.8,H*0.3,W*0.92,H*0.6);g.stroke();
+ }else if(kind==='receiver'||kind==='store'||kind==='wife'){
+  g.fillStyle='#5a4028';g.fillRect(W*0.18,H*0.35,W*0.5,H*0.35);
+  g.fillStyle='#2a2118';
+  g.beginPath();g.arc(W*0.3,H*0.52,10,0,Math.PI*2);g.fill();
+  g.beginPath();g.arc(W*0.44,H*0.52,10,0,Math.PI*2);g.fill();
+  g.fillStyle='#8a6f45';g.fillRect(W*0.56,H*0.42,W*0.06,H*0.2);
+  g.strokeStyle=ink;g.lineWidth=3;g.beginPath();g.arc(W*0.78,H*0.55,14,Math.PI*0.9,Math.PI*2.1);g.stroke();
+ }else if(kind==='horn'){
+  g.fillStyle='#2a2118';g.fillRect(W*0.4,H*0.62,W*0.2,H*0.2);
+  g.fillStyle='#8a6f45';g.beginPath();g.moveTo(W*0.5,H*0.62);g.lineTo(W*0.2,H*0.2);g.lineTo(W*0.8,H*0.2);g.closePath();g.fill();
+  g.fillStyle='#c9b183';g.beginPath();g.ellipse(W*0.5,H*0.2,W*0.3,7,0,0,Math.PI*2);g.fill();
+ }else if(kind==='home'){
+  g.fillStyle='#5a4028';g.fillRect(W*0.2,H*0.6,W*0.6,H*0.08);
+  g.fillStyle='#4a3823';g.fillRect(W*0.32,H*0.42,W*0.24,H*0.18);
+  g.fillStyle='#8a6f45';g.beginPath();g.arc(W*0.68,H*0.36,13,0,Math.PI*2);g.fill();
+  g.fillStyle='#2a2118';g.beginPath();g.arc(W*0.24,H*0.4,11,0,Math.PI*2);g.fill();
+  g.fillRect(W*0.16,H*0.5,16,22);
+ }else if(kind==='hall'||kind==='bayreuth1900'){
+  g.fillStyle='#6b5a4a';g.fillRect(W*0.1,H*0.25,W*0.8,H*0.5);
+  g.fillStyle='#3a2c1a';
+  for(var co=0;co<4;co++)g.fillRect(W*(0.16+co*0.2),H*0.32,W*0.05,H*0.36);
+  g.fillStyle='#a93226';g.fillRect(W*0.1,H*0.2,W*0.8,14);
+  g.fillStyle='#ffe9b0';g.font='bold 10px Georgia';g.fillText('★ ★ ★',W/2,H*0.2+11);
+ }else if(kind==='lecture'||kind==='blackboard'){
+  g.strokeStyle=ink;g.lineWidth=2;g.strokeRect(W*0.12,H*0.15,W*0.6,H*0.45);
+  g.beginPath();g.moveTo(W*0.16,H*0.5);g.lineTo(W*0.68,H*0.28);g.stroke();
+  g.fillStyle='#4a3823';g.beginPath();g.arc(W*0.82,H*0.45,11,0,Math.PI*2);g.fill();
+  g.fillRect(W*0.75,H*0.55,14,20);
+ }else if(kind==='hangmic'){
+  g.strokeStyle=soft;g.lineWidth=2;
+  g.beginPath();g.moveTo(0,H*0.06);g.lineTo(W,H*0.06);g.stroke();
+  g.beginPath();g.moveTo(W*0.5,H*0.06);g.lineTo(W*0.5,H*0.3);g.stroke();
+  for(var hm=-1;hm<=1;hm+=2){g.beginPath();g.moveTo(W*0.5+hm*4,H*0.3);g.quadraticCurveTo(W*0.5+hm*22,H*0.42,W*0.5+hm*16,H*0.55);g.stroke();}
+  g.fillStyle='#4a3823';g.fillRect(W*0.5-13,H*0.42,26,34);
+  g.fillStyle='#8a6f45';g.beginPath();g.arc(W*0.5,H*0.5,7,0,Math.PI*2);g.fill();
+  g.fillStyle='#c9b183';g.beginPath();g.ellipse(W*0.5,H*0.78,26,10,0,0,Math.PI*2);g.fill();
+ }else if(kind==='console'){
+  g.fillStyle='#3a3226';g.fillRect(W*0.12,H*0.45,W*0.76,H*0.3);
+  g.fillStyle='#20180f';g.fillRect(W*0.12,H*0.3,W*0.76,H*0.18);
+  g.fillStyle='#c9b183';
+  for(var kn=0;kn<5;kn++){g.beginPath();g.arc(W*(0.24+kn*0.13),H*0.39,7,0,Math.PI*2);g.fill();}
+  g.fillStyle='#53d853';g.fillRect(W*0.2,H*0.55,10,6);
+  g.fillStyle='#d85353';g.fillRect(W*0.32,H*0.55,10,6);
+  g.fillStyle='#8a6f45';
+  for(var f2=0;f2<3;f2++)g.fillRect(W*(0.5+f2*0.12),H*0.52,W*0.03,H*0.16);
  }else{ // legacy
   g.fillStyle='#efe0b8';g.fillRect(W*0.14,H*0.3,26,H*0.35);
   g.fillStyle='#ffb84d';g.beginPath();g.arc(W*0.14+13,H*0.45,8,0,Math.PI*2);g.fill();
@@ -439,14 +546,56 @@ function paintArt(g,kind,W,H,label){
  }
  grainVignette(g,W,H);
 }
+function drawArtLabel(g,art,W,H){
+ g.fillStyle='#d5c096';g.fillRect(0,H,W,30);
+ g.fillStyle='#2a2118';g.font='bold '+(W>240?'13px':'11px')+' Georgia';g.textAlign='center';
+ var t=art.t||'';
+ if(g.measureText(t).width>W-12){while(t.length>4&&g.measureText(t+'…').width>W-12)t=t.slice(0,-1);t+='…';}
+ g.fillText(t,W/2,H+19);
+}
+function repaintPhoto(g,art,img,W,H){
+ // Foto real con aspect-lock (cover, SIN estirar) + acabado sepia de época.
+ // art.fy: punto focal vertical 0=arriba, 0.5=centro (p.ej. recorte de prensa: titular).
+ var iw=img.naturalWidth||img.width,ih=img.naturalHeight||img.height;
+ if(!iw||!ih)return false;
+ var s=Math.max(W/iw,H/ih),dw=iw*s,dh=ih*s;
+ var fy=(art.fy!==undefined)?art.fy:0.5;
+ try{
+  g.save();
+  try{g.imageSmoothingEnabled=true;g.imageSmoothingQuality='high';}catch(e){}
+  g.drawImage(img,(W-dw)/2,(H-dh)*fy,dw,dh);
+  var toned=false;
+  try{
+   var id=g.getImageData(0,0,W,H),px=id.data;
+   for(var i=0;i<px.length;i+=4){
+    var r=px[i],gg=px[i+1],b=px[i+2];
+    var tr=0.393*r+0.769*gg+0.189*b,tg=0.349*r+0.686*gg+0.168*b,tb=0.272*r+0.534*gg+0.131*b;
+    px[i]=Math.min(255,(r+(tr-r)*0.55)*1.04);
+    px[i+1]=Math.min(255,(gg+(tg-gg)*0.55)*1.04);
+    px[i+2]=Math.min(255,(b+(tb-b)*0.55)*1.04);
+   }
+   g.putImageData(id,0,0);toned=true;
+  }catch(e){toned=false;}
+  if(!toned){g.fillStyle='rgba(150,110,55,0.28)';g.fillRect(0,0,W,H);} // tinte sepia (canvas file://)
+  g.restore();
+ }catch(e){return false;}
+ return true;
+}
 function makeArtTexture(art){
  var asp=ART_ASPECT[art.k]||1.33;
  var W=256,H=Math.round(256/asp);
  var c=document.createElement('canvas');c.width=W;c.height=H+30;
  var g=c.getContext('2d');
- paintArt(g,art.k,W,H,art.t);
- // franja pie ya incluida en paint (30px)
- var t=new THREE.CanvasTexture(c);return {tex:t,asp:asp};
+ paintArt(g,art.k,W,H,art.t); // placeholder vectorial inmediato (offline/fallback)
+ var t=new THREE.CanvasTexture(c);
+ // mejora progresiva: foto histórica real cuando cargue img/<archivo>
+ upgradeArtTexture(art,function(img){
+  if(!repaintPhoto(g,art,img,W,H))return; // conserva vectorial si falla
+  drawArtLabel(g,art,W,H);
+  grainVignette(g,W,H+30);
+  t.needsUpdate=true;
+ });
+ return {tex:t,asp:asp};
 }
 function makeFrameMesh(art,maxW,maxH){
  // marco madera vintage + panel albedo sepia, aspecto original preservado
@@ -533,6 +682,19 @@ function buildZone(idx){
    {x:0,y:2.0,z:-D/2+0.6,ry:0,art:ZONES[0].objs[1].art},
    {x:7,y:2.0,z:-D/2+0.6,ry:0,art:ZONES[0].objs[2].art}
   ]);
+  // Laterales Sala 1 (pared de la puerta despejada): sur 3 + oeste 2, eye-level
+  placeGallery([
+   {x:-7,y:2.0,z:D/2-0.6,ry:Math.PI,art:{k:'family',t:'La radio en familia · Años 20',c:'Fotografía de una familia escuchando la radio con altavoz: el nuevo ritual del hogar en los años 20.'}},
+   {x:0,y:2.0,z:D/2-0.6,ry:Math.PI,art:{k:'spark',t:'Transmisor de chispa · 1913',c:'Fotografía del transmisor de chispa rotativo de la Marina en Arlington (1913): pulsos Morse de 100 kW, sin voz.'}},
+   {x:7,y:2.0,z:D/2-0.6,ry:Math.PI,art:{k:'phones',t:'Auriculares inalámbricos · 1909',c:'Aviso de 1909 de auriculares Holtzer-Cabot para telegrafía sin hilos: antes del altavoz, la radio se oía en diadema.'}},
+   {x:-W/2+0.6,y:2.0,z:-4,ry:Math.PI/2,art:{k:'deforest',t:'Lee de Forest · Inventor del Audión',c:'Retrato fotográfico de Lee de Forest junto a uno de sus inventos: su Audión de 1906 hizo posible amplificar la voz.'}},
+   {x:-W/2+0.6,y:2.0,z:3,ry:Math.PI/2,art:{k:'armstrong',t:'Edwin Armstrong · Regeneración y FM',c:'Retrato de Edwin Armstrong, inventor del circuito regenerativo, el superheterodino y la FM.'}}
+  ]);
+  // Pared de la puerta Sala 1 (este): 1 izq + 1 der, paso central libre
+  placeGallery([
+   {x:W/2-0.6,y:2.0,z:-5.25,ry:-Math.PI/2,art:{k:'oscillator',t:'Oscilador regenerativo · Patente',c:'Esquema de realimentación de Armstrong: el dibujo de patente que hizo oscilar a la válvula y nacer la onda continua.'}},
+   {x:W/2-0.6,y:2.0,z:6.25,ry:-Math.PI/2,art:{k:'concert1912',fy:0,t:'Conciertos por radioteléfono · 1912',c:'Prensa de 1912 anunciando conciertos por radioteléfono: así se enteraba el público de las emisiones, como las nocturnas de 8XK en 1920.'}}
+  ]);
  }else if(idx===1){
   // KDKA: consola, teletipo, antena
   var cons=new THREE.Group();
@@ -549,6 +711,19 @@ function buildZone(idx){
    {x:-7,y:2.0,z:-D/2+0.6,ry:0,art:ZONES[1].objs[0].art},
    {x:0,y:2.0,z:-D/2+0.6,ry:0,art:ZONES[1].objs[1].art},
    {x:7,y:2.0,z:-D/2+0.6,ry:0,art:ZONES[1].objs[2].art}
+  ]);
+  // Laterales Sala 2: sur 3 + oeste 2 (puerta este despejada)
+  placeGallery([
+   {x:-7,y:2.0,z:D/2-0.6,ry:Math.PI,art:{k:'orchestra',t:'Orquesta ante el micrófono · Años 20',c:'Fotografía de una cantante con orquesta grabando ante el micrófono (estudio HMV, Sídney, ca.1928-1932): la música en vivo entraba a la radio.'}},
+   {x:0,y:2.0,z:D/2-0.6,ry:Math.PI,art:{k:'tower',t:'Antena WBZ de Westinghouse · 1925',c:'Fotografía de la antena en T de la estación WBZ de Westinghouse (1925): torres como las que llevaron el broadcasting al aire.'}},
+   {x:7,y:2.0,z:D/2-0.6,ry:Math.PI,art:{k:'receiver',t:'Radio de galena · Aviso de época',c:'Aviso de época de una radio de galena: el receptor hogareño de madera y piedra que llevó KDKA a miles de salas.'}},
+   {x:-W/2+0.6,y:2.0,z:-4,ry:Math.PI/2,art:{k:'superhet',t:'Superheterodino · Prototipo 1920',c:'Fotografía del prototipo de receptor superheterodino de Armstrong (1920), base de los receptores comerciales.'}},
+   {x:-W/2+0.6,y:2.0,z:3,ry:Math.PI/2,art:{k:'superregen',t:'Armstrong y su superregenerativo',c:'Fotografía de Edwin Armstrong junto a su receptor superregenerativo: sintonía fina para la era del broadcast.'}}
+  ]);
+  // Pared de la puerta Sala 2 (este): 1 izq + 1 der, paso central libre
+  placeGallery([
+   {x:W/2-0.6,y:2.0,z:-5.25,ry:-Math.PI/2,art:{k:'pasystem',t:'Megafonía por válvulas · c.1920',c:'Fotografía de una cadena de megafonía electrónica por válvulas (c.1920): micrófono, amplificador de 6 tubos y bocina, con sus llaves y perillas.'}},
+   {x:W/2-0.6,y:2.0,z:6.25,ry:-Math.PI/2,art:{k:'fieldkit',t:'Radio de campaña · 1906',c:'Fotografía de un técnico Marconi con equipo de campaña en Inglaterra (1906): la radio portátil en exteriores.'}}
   ]);
  }else if(idx===2){
   // Azotea Coliseo: parapetos, tx 5W, cúpula teatro, cielo nocturno + ciudad
@@ -569,6 +744,19 @@ function buildZone(idx){
    {x:0,y:2.1,z:-D/2+0.6,ry:0,art:ZONES[2].objs[1].art},
    {x:7,y:2.1,z:-D/2+0.6,ry:0,art:ZONES[2].objs[2].art}
   ]);
+  // Laterales Sala 3: sur 3 + oeste 2 (puerta este despejada)
+  placeGallery([
+   {x:-7,y:2.1,z:D/2-0.6,ry:Math.PI,art:{k:'horn',t:'Altavoz de bocina · 1920',c:'Fotografía de un altavoz de bocina Magnavox (1920): bocinas como esta amplificaban la ópera en los hogares.'}},
+   {x:0,y:2.1,z:D/2-0.6,ry:Math.PI,art:{k:'wagner',t:'Richard Wagner · Viena 1862',c:'Retrato fotográfico de Richard Wagner (Viena, 1862), compositor de Parsifal, la ópera de la hazaña del Coliseo.'}},
+   {x:7,y:2.1,z:D/2-0.6,ry:Math.PI,art:{k:'marconi',t:'Guglielmo Marconi · 1909',c:'Retrato de Guglielmo Marconi en 1909, año de su Nobel: su telégrafo sin hilos inspiró a Los Locos de la Azotea.'}},
+   {x:-W/2+0.6,y:2.1,z:-4,ry:Math.PI/2,art:{k:'home',t:'Sintonizando en casa · 1923',c:'Fotografía hogareña de 1923 sintonizando la radio con bocina: así oyeron los porteños a Parsifal con galena.'}},
+   {x:-W/2+0.6,y:2.1,z:3,ry:Math.PI/2,art:{k:'hall',t:'Teatro Coliseo · 1953',c:'Fotografía del Teatro Coliseo en 1953, tres décadas después de la noche en que su azotea hizo historia.'}}
+  ]);
+  // Pared de la puerta Sala 3 (este): 1 izq + 1 der, paso central libre
+  placeGallery([
+   {x:W/2-0.6,y:2.1,z:-5.25,ry:-Math.PI/2,art:{k:'bayreuth1900',t:'Bayreuth · Templo de Parsifal',c:'Fotografía del Festspielhaus de Bayreuth hacia 1900, templo de Parsifal: la ópera viajó de aquí al Coliseo de Buenos Aires.'}},
+   {x:W/2-0.6,y:2.1,z:3,ry:-Math.PI/2,art:{k:'hangmic',t:'Micrófono colgado · Recreación',c:'Recreación ilustrada del micrófono de carbón colgado con bocina para sordos, como el del Coliseo (foto original no disponible en dominio público).'}}
+  ]);
  }else{
   // SALA 4 · Estudio Legado / Siglo XXI: galería comparativa final
   addProp(makeTable(),-7,-6);addProp(makeTable(),0,-6);addProp(makeTable(),7,-6);
@@ -579,6 +767,19 @@ function buildZone(idx){
    {x:-7,y:2.0,z:-D/2+0.6,ry:0,art:ZONES[3].objs[0].art},
    {x:0,y:2.0,z:-D/2+0.6,ry:0,art:ZONES[3].objs[1].art},
    {x:7,y:2.0,z:-D/2+0.6,ry:0,art:ZONES[3].objs[2].art}
+  ]);
+  // Laterales Sala 4 (evolución): sur 3 + oeste 2 (puerta este despejada)
+  placeGallery([
+   {x:-7,y:2.0,z:D/2-0.6,ry:Math.PI,art:{k:'fm',t:'Prototipo FM · 1935',c:'Fotografía del prototipo de transmisor FM de Armstrong (1935): del AM de 1920 a la frecuencia modulada.'}},
+   {x:0,y:2.0,z:D/2-0.6,ry:Math.PI,art:{k:'blackboard',t:'Armstrong en la pizarra',c:'Fotografía de Edwin Armstrong explicando sus circuitos: la lección que llevó la radio del AM al FM.'}},
+   {x:7,y:2.0,z:D/2-0.6,ry:Math.PI,art:{k:'carbon',t:'Amplificador de carbón · 1919',c:'Fotografía de un receptor con amplificador de carbón (1919): el puente entre el micrófono y la válvula.'}},
+   {x:-W/2+0.6,y:2.0,z:-4,ry:Math.PI/2,art:{k:'store',t:'Radios en vitrina · 1926',c:'Fotografía de una vitrina de receptores comerciales de madera (Washington D.C., ca.1926): la radio ya era mueble del hogar.'}},
+   {x:-W/2+0.6,y:2.0,z:3,ry:Math.PI/2,art:{k:'wife',t:'Superheterodino portátil · 1923',c:'Fotografía del superheterodino portátil de 1923: la radio salía del taller a la calle.'}}
+  ]);
+  // Pared de la puerta Sala 4 (este): 1 izq + 1 der, paso central libre
+  placeGallery([
+   {x:W/2-0.6,y:2.0,z:-5.25,ry:-Math.PI/2,art:{k:'inventors48',t:'Inventores del transistor',c:'Fotografía de Bardeen, Brattain y Shockley, inventores del transistor: del Audión de 1906 al estado sólido.'}},
+   {x:W/2-0.6,y:2.0,z:3,ry:-Math.PI/2,art:{k:'console',t:'Consola profesional · Recreación',c:'Recreación ilustrada de una consola profesional de radiodifusión de época, con vúmetros y perillas (foto original no disponible en dominio público).'}}
   ]);
  }
  // Posición inicial jugador (centrada, cámara dentro de sala)

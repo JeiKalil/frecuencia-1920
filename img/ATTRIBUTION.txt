@@ -1,0 +1,89 @@
+Frecuencia 1920 3D — Fotografías históricas de la galería de época
+====================================================================
+Todas las imágenes son de dominio público (EE. UU. / país de origen) y se
+usan con fines educativos. Fuentes y créditos:
+
+- station8xk.jpg
+  Estación 8XK de Frank Conrad, 1920 (revista QST) — Wikimedia Commons, dominio público
+- audion.jpg
+  Primer triodo Audion de De Forest, 1906 — Wikimedia Commons, dominio público
+- conrad.jpg
+  Frank Conrad, 1921 (revista QST) — Wikimedia Commons, dominio público
+- kdka.jpg
+  Estudio de KDKA, diciembre 1922 (Radio Broadcasting News) — Wikimedia Commons, dominio público
+- press1920.jpg
+  Saint Louis Post-Dispatch, 3-nov-1920 (resultados por radioteléfono) — Wikimedia Commons, dominio público
+- transmitter.jpg
+  Transmisores Audión AM c.1916 (Lescarboura, 1916) — Wikimedia Commons, dominio público
+- locos.gif
+  Pioneros de Radio Argentina (Susini y cía.) — Wikimedia Commons (PD-AR-Photo), dominio público
+- coliseo.jpg
+  Teatro Coliseo de Buenos Aires, ca.1910 — Wikimedia Commons, dominio público
+- parsifal.jpg
+  Rogelio de Egusquiza, ilustración de Parsifal (pre-1931) — Wikimedia Commons, dominio público EE. UU.
+- mic1920.jpg
+  Micrófono de carbón Western Electric de doble botón — Wikimedia Commons, dominio público
+- family1920.jpg
+  Familia escuchando la radio con altavoz (años 20) — Wikimedia Commons, dominio público
+- spark1913.jpg
+  Transmisor de chispa rotativo de la Marina, Arlington 1913 — Wikimedia Commons, dominio público EE. UU.
+- phones1909.jpg
+  Aviso de 1909 de auriculares Holtzer-Cabot para telegrafía sin hilos — Wikimedia Commons, dominio público
+- deforest.jpg
+  Lee de Forest con uno de sus inventos (Bain News Service, LoC) — Wikimedia Commons, dominio público
+- armstrong.jpg
+  Edwin H. Armstrong, inventor de la regeneración y la FM — Wikimedia Commons, dominio público
+- orchestra20s.jpg
+  Cantante con orquesta ante el micrófono, estudio HMV Sídney ca.1928-1932 — Wikimedia Commons, dominio público
+- towerwbz.jpg
+  Antena en T de la estación WBZ de Westinghouse, 1925 — Wikimedia Commons, dominio público EE. UU.
+- crystalad.jpg
+  Aviso de época de radio de galena — Wikimedia Commons, dominio público
+- superhet1920.jpg
+  Prototipo de receptor superheterodino de Armstrong, 1920 — Wikimedia Commons, dominio público
+- superregen.jpg
+  Edwin Armstrong junto a su receptor superregenerativo — Wikimedia Commons, dominio público
+- horn1920.jpg
+  Altavoz de bocina Magnavox, 1920 — Wikimedia Commons, dominio público EE. UU.
+- wagner1862.jpg
+  Richard Wagner en Viena, 1862 — Wikimedia Commons, dominio público
+- marconi1909.jpg
+  Guglielmo Marconi en 1909, año de su Nobel — Wikimedia Commons, dominio público
+- home1923.jpg
+  Hogar sintonizando la radio con altavoz de bocina, 1923 — Wikimedia Commons, dominio público EE. UU.
+- coliseo1953.jpg
+  Teatro Coliseo de Buenos Aires, 1953 — Wikimedia Commons, dominio público
+- fm1935.jpg
+  Prototipo de transmisor FM de Armstrong, 1935 — Wikimedia Commons, dominio público
+- blackboard.jpg
+  Edwin Armstrong explicando sus circuitos en la pizarra — Wikimedia Commons, dominio público
+- carbon1919.jpg
+  Receptor con amplificador de carbón, 1919 — Wikimedia Commons, dominio público
+- store1926.jpg
+  Vitrina de receptores comerciales de madera, Washington D.C. ca.1926 — Wikimedia Commons, dominio público
+- portable1923.jpg
+  Superheterodino portátil de 1923 — Wikimedia Commons, dominio público
+- oscillator.png
+  Esquema de realimentación de Armstrong (dibujo de patente) — Wikimedia Commons, dominio público
+- concert1912.jpg
+  San Jose Mercury Herald, 21-jul-1912 (concierto por radioteléfono) — Wikimedia Commons, dominio público
+- pasystem.jpg
+  Primera cadena de megafonía electrónica por válvulas, c.1920 — Wikimedia Commons, dominio público
+- fieldkit.jpg
+  Técnico Marconi con equipo de campaña, Inglaterra 1906 — Wikimedia Commons, dominio público
+- bayreuth1900.jpg
+  Festspielhaus de Bayreuth hacia 1900 — Wikimedia Commons, dominio público
+- inventors48.jpg
+  Bardeen, Brattain y Shockley, inventores del transistor (Bell Labs) — Wikimedia Commons, dominio público
+
+Notas:
+- "Estudio KDKA 1922" muestra el estudio de diciembre de 1922, heredero
+  directo de la choza de transmisión de la noche electoral de 1920.
+- "Transmisores Audión c.1916" muestra la misma familia tecnológica del
+  equipo de 5W de la azotea del Coliseo.
+- "Teatro Coliseo ca.1910" muestra el teatro cuya azotea albergó en 1920
+  el transmisor de Los Locos de la Azotea.
+- "Parsifal (Egusquiza)" es una ilustración de época de la ópera
+  transmitida el 27-ago-1920, no el afiche original de la función.
+- En el juego se aplica un acabado sepia + viñeta + grano sobre cada foto
+  para integrarla con la iluminación de la sala (ver game.js).
