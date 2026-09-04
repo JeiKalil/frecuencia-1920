@@ -20,9 +20,9 @@ var ZONES=[
   intro:'Halla las válvulas termoiónicas y el micrófono de carbón. Calibra el 8XK.',
   keyId:'audion',
   objs:[
-   {id:'chispa',icon:'⚡',label:'Inspeccionar Transmisor',name:'Transmisor de chispas (obsoleto)',info:'Solo pulsos ásperos Morse. No sirve para voz.',step:1,station:'MESA 1'},
-   {id:'audion',icon:'🔧',label:'Calibrar Transmisor 8XK',name:'Válvula Audión ★ CLAVE',info:'El corazón que amplifica voz y música continua.',step:2,station:'MESA 2'},
-   {id:'micro',icon:'🎙️',label:'Inspeccionar Micrófono',name:'Micrófono de carbón',info:'Captará voz y música cuando el transmisor esté listo.',step:3,station:'MESA 3'},
+   {id:'chispa',icon:'⚡',label:'Inspeccionar Transmisor',name:'Transmisor de chispas (obsoleto)',info:'Solo pulsos ásperos Morse. No sirve para voz.',step:1,station:'MESA 1',art:{k:'diagram',t:'Patente del transmisor 8XK',c:'Diagrama original del radiofórmula 8XK de Conrad: del chisporroteo Morse a la onda continua que haría posible la voz.'}},
+   {id:'audion',icon:'🔧',label:'Calibrar Transmisor 8XK',name:'Válvula Audión ★ CLAVE',info:'El corazón que amplifica voz y música continua.',step:2,station:'MESA 2',art:{k:'valves',t:'Válvula Audión y primeros discos',c:'Receptor de válvulas Audión junto a los discos de vinilo que Conrad transmitía desde su garaje en 1920.'}},
+   {id:'micro',icon:'🎙️',label:'Inspeccionar Micrófono',name:'Micrófono de carbón',info:'Captará voz y música cuando el transmisor esté listo.',step:3,station:'MESA 3',art:{k:'portrait',t:'Frank Conrad en su taller',c:'Retrato de Frank Conrad, ingeniero de Westinghouse, experimentando en su garaje de Pittsburgh en 1920.'}},
    {id:'puerta',icon:'🚪',label:'Abrir puerta KDKA',name:'Puerta a KDKA',info:'Requiere +100 Hz de frecuencia.',step:4,station:'PUERTA KDKA'}
   ],
   trivia:{q:'¿Qué avance permitió transmitir voz y música continua en 1920 en lugar de solo pulsos Morse?',
@@ -34,9 +34,9 @@ var ZONES=[
   intro:'Prepara la antena de transmisión en vivo. Alinea frecuencia y potencia antes del aire.',
   keyId:'consola',
   objs:[
-   {id:'antena',icon:'📶',label:'Reparar Antena',name:'Antena de transmisión',info:'Sin antena no hay alcance en vivo.',step:1,station:'ANTENA 1'},
-   {id:'consola',icon:'🎚️',label:'Alinear Frecuencia',name:'Consola KDKA ★ CLAVE',info:'Frecuencia + potencia en tiempo real antes del aire.',step:2,station:'CONSOLA 2'},
-   {id:'teletipo',icon:'📰',label:'Inspeccionar Teletipo',name:'Teletipo electoral',info:'Escupe resultados Harding vs. Cox.',step:3,station:'TELETIPO 3'},
+   {id:'antena',icon:'📶',label:'Reparar Antena',name:'Antena de transmisión',info:'Sin antena no hay alcance en vivo.',step:1,station:'ANTENA 1',art:{k:'transmitter',t:'Transmisor Westinghouse de alta potencia',c:'Plano y foto del transmisor de alta potencia de Westinghouse que puso a KDKA en el aire.'}},
+   {id:'consola',icon:'🎚️',label:'Alinear Frecuencia',name:'Consola KDKA ★ CLAVE',info:'Frecuencia + potencia en tiempo real antes del aire.',step:2,station:'CONSOLA 2',art:{k:'kdka',t:'Operadores KDKA · Noche electoral 1920',c:'Los operadores de KDKA transmitiendo los resultados Harding vs. Cox el 2 de noviembre de 1920.'}},
+   {id:'teletipo',icon:'📰',label:'Inspeccionar Teletipo',name:'Teletipo electoral',info:'Escupe resultados Harding vs. Cox.',step:3,station:'TELETIPO 3',art:{k:'newspaper',t:'Prensa: nace el broadcasting',c:'Recortes de periódicos de la época anunciando el nacimiento del broadcasting comercial masivo.'}},
    {id:'puerta',icon:'🚪',label:'Subir a la Azotea',name:'Salida a Buenos Aires',info:'Requiere +200 Hz acumulados.',step:4,station:'SALIDA AZOTEA'}
   ],
   trivia:{q:'¿Qué hito convirtió a KDKA el 2 de noviembre de 1920 en referente del broadcasting comercial?',
@@ -48,16 +48,26 @@ var ZONES=[
   intro:'Con Los Locos de la Azotea instala el transmisor de 5W. Conecta Parsifal.',
   keyId:'parche',
   objs:[
-   {id:'tx5w',icon:'📻',label:'Inspeccionar Transmisor',name:'Transmisor de 5 watts',info:'Armado con restos de un barco de guerra.',step:1,station:'EQUIPO 1'},
-   {id:'parche',icon:'🔌',label:'Conectar Parches',name:'Circuito de parches ★ CLAVE',info:'Parchea FASE A/B/C para emitir Parsifal de Wagner.',step:2,station:'PARCHE 2'},
-   {id:'micro2',icon:'🎙️',label:'Colgar Micrófono',name:'Micrófono sobre el escenario',info:'Captará a los cantantes de Parsifal.',step:3,station:'MIC 3'},
-   {id:'puerta',icon:'🏆',label:'Emitir Parsifal',name:'Antena final',info:'Completa la emisión para ganar.',step:4,station:'ANTENA FINAL'}
+   {id:'tx5w',icon:'📻',label:'Inspeccionar Transmisor',name:'Transmisor de 5 watts',info:'Armado con restos de un barco de guerra.',step:1,station:'EQUIPO 1',art:{k:'tx5w',t:'Transmisor de 5 watts en la azotea',c:'Foto del transmisor de 5 watts montado en la azotea del Teatro Coliseo por Los Locos.'}},
+   {id:'parche',icon:'🔌',label:'Conectar Parches',name:'Circuito de parches ★ CLAVE',info:'Parchea FASE A/B/C para emitir Parsifal de Wagner.',step:2,station:'PARCHE 2',art:{k:'locos',t:'Los Locos de la Azotea (1920)',c:'Enrique Susini, César Guerrico, Luis Romero Carranza y Miguel Mujica, pioneros de la radio en América Latina.'}},
+   {id:'micro2',icon:'🎙️',label:'Colgar Micrófono',name:'Micrófono sobre el escenario',info:'Captará a los cantantes de Parsifal.',step:3,station:'MIC 3',art:{k:'poster',t:'Parsifal en el Coliseo · 1920',c:'Programa de la función inaugural: la ópera Parsifal de Wagner, primera emisión artística al público general.'}},
+   {id:'puerta',icon:'🚪',label:'Ir a la Galería Legado',name:'Galería del legado',info:'Requiere +300 Hz acumulados.',step:4,station:'GALERÍA LEGADO'}
   ],
   trivia:{q:'El 27 de agosto de 1920 en Argentina, ¿qué se transmitió al público general con 5 vatios?',
    ctx:'Enrique Susini y Los Locos de la Azotea, antena improvisada en la azotea del Coliseo.',
    opts:['Un partido de fútbol internacional.','El discurso del presidente.','La ópera Parsifal de Wagner.','Un boletín meteorológico.'],correct:2,
    ok:'¡Exacto! Transmitieron Parsifal. Solo unas 20 personas con galena pudieron oírla. Pioneros en América Latina.',
-   bad:'No fue eso. Fue la ópera Parsifal de Wagner, primera transmisión de arte para público general.'}}
+   bad:'No fue eso. Fue la ópera Parsifal de Wagner, primera transmisión de arte para público general.'}},
+ {name:'SALA 4 · Estudio Legado / Siglo XXI',sub:'Estación Final · Del Audión al presente',
+  intro:'Galería del legado: inspecciona los 3 cuadros [1][2][3] y emite desde la antena final.',
+  keyId:'',
+  objs:[
+   {id:'gal1',icon:'🖼️',label:'Inspeccionar Infografía',name:'Evolución de frecuencias',info:'Del Audión a la FM, del transistor al streaming.',step:1,station:'PANEL 1',art:{k:'evo',t:'1920 → Hoy: evolución de frecuencias',c:'Infografía vintage: onda media, FM, transistores y radio digital. Todo nació en 1920.'}},
+   {id:'gal2',icon:'🖼️',label:'Inspeccionar Cabina',name:'Primeras cabinas profesionales',info:'Locutorio de los años 20: fieltro, carbón y relojes.',step:2,station:'PANEL 2',art:{k:'cabin',t:'Cabinas de radio · Años 20',c:'Fotografía de archivo de las primeras cabinas profesionales: micrófono de carbón y paredes insonorizadas.'}},
+   {id:'gal3',icon:'🖼️',label:'Inspeccionar Legado',name:'Del Audión al transistor',info:'Un siglo de éter en una pared.',step:3,station:'PANEL 3',art:{k:'legacy',t:'Legado: un siglo de éter',c:'Comparativa del legado: la válvula que encendió 1920 y las voces que aún viajan por el aire.'}},
+   {id:'puerta',icon:'🏆',label:'Emitir Señal Final',name:'Antena final',info:'Inspecciona los 3 paneles y emite.',step:4,station:'ANTENA FINAL'}
+  ],
+  trivia:null}
 ];
 
 /* ---------- Tutoriales previos (tarjeta informativa flotante) ---------- */
@@ -76,10 +86,10 @@ var TUTS={
   tip:'📚 Tip: el texto de contexto contiene la pista del hito histórico.'}
 };
 
-/* ---------- Estado global + RUTA ---------- */
-var G={mode:'menu',zone:0,score:0,lives:3,puzzleDone:[false,false,false],triviaDone:[false,false,false],
- doorOpen:[false,false,false],near:null,fps:0,frames:0,fpsT:0,paused:false,clarity:0,
- visited:[{},{},{}],pendingTutor:null};
+/* ---------- Estado global + RUTA (4 salas) ---------- */
+var G={mode:'menu',zone:0,score:0,lives:3,puzzleDone:[false,false,false,true],triviaDone:[false,false,false,true],
+ doorOpen:[false,false,false,false],near:null,fps:0,frames:0,fpsT:0,paused:false,clarity:0,
+ visited:[{},{},{},{}],pendingTutor:null,pendingCaption:null};
 
 /* ---------- Audio 1920 procedural (WebAudio, offline) ---------- */
 var AU={ctx:null,noiseGain:null,musicGain:null,musicFilter:null,humOsc:null,started:false,clarity:0,
@@ -332,6 +342,137 @@ function addWall(x,z,w,d,h,color){
  colliders.push({x0:x-w/2,x1:x+w/2,z0:z-d/2,z1:z+d/2});
  return m;
 }
+/* ---------- WALL ART: marcos vintage + albedo sepia (aspecto original) ---------- */
+var ART_ASPECT={portrait:0.75,diagram:1.33,valves:1.33,kdka:1.33,newspaper:1.33,transmitter:1.33,locos:1.33,poster:0.75,tx5w:1.33,evo:1.5,cabin:1.33,legacy:1.33};
+function grainVignette(g,W,H){
+ var i;for(i=0;i<220;i++){g.fillStyle='rgba(90,70,40,'+(Math.random()*0.08)+')';g.fillRect(Math.random()*W,Math.random()*H,1.5,1.5);}
+ var gr=g.createRadialGradient(W/2,H/2,Math.min(W,H)*0.35,W/2,H/2,Math.max(W,H)*0.75);
+ gr.addColorStop(0,'rgba(0,0,0,0)');gr.addColorStop(1,'rgba(40,25,10,0.42)');
+ g.fillStyle=gr;g.fillRect(0,0,W,H);
+ g.strokeStyle='rgba(60,40,20,0.85)';g.lineWidth=6;g.strokeRect(3,3,W-6,H-6);
+}
+function paintArt(g,kind,W,H,label){
+ // fondo papel archivo + dibujo sepia según hito
+ g.fillStyle='#e3d3a8';g.fillRect(0,0,W,H);
+ g.fillStyle='#d5c096';g.fillRect(0,H-30,W,30);
+ g.fillStyle='#2a2118';g.font='bold '+(W>240?'13px':'11px')+' Georgia';g.textAlign='center';
+ g.fillText(label||'',W/2,H-11);
+ var ink='#3a2c1a',soft='#6b5230',gold='#8a6d2a';
+ g.strokeStyle=ink;g.fillStyle=ink;
+ if(kind==='portrait'){
+  g.fillStyle='#c9b183';g.beginPath();g.arc(W/2,H*0.36,Math.min(W,H)*0.17,0,Math.PI*2);g.fill();
+  g.fillStyle='#8a6f45';g.beginPath();g.arc(W/2,H*0.33,Math.min(W,H)*0.125,0,Math.PI*2);g.fill();
+  g.fillStyle='#4a3823';g.fillRect(W*0.28,H*0.62,W*0.44,H*0.24);
+  g.fillStyle='#2a2118';g.fillRect(W*0.44,H*0.62,W*0.12,H*0.24);
+  g.strokeStyle=soft;g.lineWidth=2;g.strokeRect(W*0.14,H*0.08,W*0.72,H*0.78);
+  g.font='italic 11px Georgia';g.fillStyle=soft;g.fillText('taller · 1920',W/2,H*0.16);
+ }else if(kind==='diagram'){
+  g.strokeStyle=ink;g.lineWidth=2;
+  g.strokeRect(W*0.12,H*0.14,W*0.76,H*0.6);
+  g.beginPath();g.moveTo(W*0.12,H*0.44);g.lineTo(W*0.88,H*0.44);g.stroke();
+  g.beginPath();g.arc(W*0.5,H*0.44,16,0,Math.PI*2);g.stroke();
+  g.beginPath();g.moveTo(W*0.5,H*0.2);g.lineTo(W*0.5,H*0.68);g.stroke();
+  for(var i=0;i<3;i++){g.beginPath();g.moveTo(W*(0.24+i*0.13),H*0.6);g.lineTo(W*(0.24+i*0.13),H*0.68);g.stroke();}
+  g.font='bold 13px Georgia';g.fillText('8XK',W/2,H*0.3);
+  g.font='10px Georgia';g.fillStyle=soft;g.fillText('ANT · TIERRA',W/2,H*0.7);
+ }else if(kind==='valves'){
+  for(var v=0;v<3;v++){var x=W*(0.25+v*0.25);
+   g.fillStyle='#8a6f45';g.fillRect(x-14,H*0.62,28,10);
+   g.fillStyle='#efe0b8';g.fillRect(x-11,H*0.3,22,H*0.32);
+   g.fillStyle='#ffb84d';g.beginPath();g.arc(x,H*0.46,7,0,Math.PI*2);g.fill();}
+  g.fillStyle='#4a3823';
+  for(var d=0;d<2;d++){g.beginPath();g.arc(W*(0.32+d*0.36),H*0.82,13,0,Math.PI*2);g.fill();}
+ }else if(kind==='kdka'){
+  g.fillStyle='#4a3823';g.fillRect(W*0.1,H*0.55,W*0.8,H*0.2);
+  for(var p=0;p<2;p++){var px=W*(0.32+p*0.36);
+   g.fillStyle='#8a6f45';g.beginPath();g.arc(px,H*0.42,14,0,Math.PI*2);g.fill();
+   g.fillStyle='#4a3823';g.fillRect(px-16,H*0.55,32,H*0.1);}
+  g.fillStyle='#a93226';g.fillRect(W*0.36,H*0.12,W*0.28,20);
+  g.fillStyle='#fff';g.font='bold 12px Georgia';g.fillText('ON AIR',W/2,H*0.12+15);
+ }else if(kind==='newspaper'){
+  g.fillStyle='#2a2118';g.font='bold 15px Georgia';g.fillText('RADIO DAILY',W/2,H*0.18);
+  g.fillRect(W*0.1,H*0.24,W*0.8,2);
+  for(var c=0;c<3;c++){var cx=W*(0.14+c*0.26);
+   g.fillStyle='#6b5230';for(var l=0;l<6;l++)g.fillRect(cx,H*(0.3+l*0.07),W*0.2,3);}
+  g.fillStyle='#a93226';g.font='bold 11px Georgia';g.fillText('¡BROADCASTING!',W/2,H*0.82);
+ }else if(kind==='transmitter'){
+  g.fillStyle='#4a3823';g.fillRect(W*0.2,H*0.45,W*0.3,H*0.3);
+  g.fillStyle='#2a2118';g.fillRect(W*0.55,H*0.2,8,H*0.55);
+  g.strokeStyle=soft;for(var a=0;a<3;a++){g.beginPath();g.moveTo(W*0.55+4,H*(0.3+a*0.1));g.lineTo(W*0.55+34-a*8,H*(0.3+a*0.1));g.stroke();}
+  g.fillStyle=gold;g.beginPath();g.arc(W*0.55+4,H*0.18,5,0,Math.PI*2);g.fill();
+ }else if(kind==='locos'){
+  g.strokeStyle=soft;g.beginPath();g.moveTo(W*0.08,H*0.7);g.lineTo(W*0.92,H*0.7);g.stroke();
+  for(var q=0;q<4;q++){var qx=W*(0.2+q*0.2);
+   g.fillStyle='#8a6f45';g.beginPath();g.arc(qx,H*0.5,13,0,Math.PI*2);g.fill();
+   g.fillStyle='#4a3823';g.fillRect(qx-14,H*0.62,28,10);}
+  g.font='10px Georgia';g.fillStyle=soft;g.fillText('azotea · 1920',W/2,H*0.85);
+ }else if(kind==='poster'){
+  g.strokeStyle=ink;g.lineWidth=3;g.beginPath();g.arc(W/2,H*0.52,W*0.34,Math.PI,0);g.stroke();
+  g.beginPath();g.moveTo(W*0.16,H*0.52);g.lineTo(W*0.16,H*0.72);g.moveTo(W*0.84,H*0.52);g.lineTo(W*0.84,H*0.72);g.stroke();
+  g.font='bold 17px Georgia';g.fillText('PARSIFAL',W/2,H*0.3);
+  g.font='11px Georgia';g.fillStyle=soft;g.fillText('COLISEO',W/2,H*0.38);
+ }else if(kind==='tx5w'){
+  g.fillStyle='#4a5a4a';g.fillRect(W*0.16,H*0.5,W*0.3,H*0.25);
+  g.fillStyle='#2a2118';g.fillRect(W*0.6,H*0.25,7,H*0.5);
+  g.strokeStyle=soft;g.beginPath();g.moveTo(W*0.31,H*0.55);g.quadraticCurveTo(W*0.5,H*0.4,W*0.6,H*0.5);g.stroke();
+  g.fillStyle=gold;g.beginPath();g.arc(W*0.6+3,H*0.23,5,0,Math.PI*2);g.fill();
+  g.font='bold 12px Georgia';g.fillText('5 W',W*0.31,H*0.45);
+ }else if(kind==='evo'){
+  var yrs=['1920','1940','1970','HOY'];
+  g.strokeStyle=ink;g.lineWidth=3;g.beginPath();g.moveTo(W*0.08,H*0.45);g.lineTo(W*0.92,H*0.45);g.stroke();
+  for(var y=0;y<4;y++){var yx=W*(0.12+y*0.25);
+   g.fillStyle=y===0||y===3?gold:'#4a3823';g.beginPath();g.arc(yx,H*0.45,9,0,Math.PI*2);g.fill();
+   g.fillStyle='#fff';if(y===3){g.font='bold 8px Georgia';g.fillText('▶',yx,H*0.48);}
+   g.fillStyle=soft;g.font='10px Georgia';g.fillText(yrs[y],yx,H*0.65);}
+ }else if(kind==='cabin'){
+  g.fillStyle='#5a4632';g.fillRect(W*0.1,H*0.15,W*0.8,H*0.6);
+  g.fillStyle='#2a2118';g.fillRect(W*0.14,H*0.19,W*0.3,H*0.5);
+  g.fillStyle='#c9b183';g.beginPath();g.arc(W*0.62,H*0.42,12,0,Math.PI*2);g.fill();
+  g.fillStyle='#4a3823';g.fillRect(W*0.6,H*0.55,5,H*0.14);
+  g.strokeStyle='#e8d9b0';g.beginPath();g.arc(W*0.82,H*0.28,10,0,Math.PI*2);g.stroke();
+ }else{ // legacy
+  g.fillStyle='#efe0b8';g.fillRect(W*0.14,H*0.3,26,H*0.35);
+  g.fillStyle='#ffb84d';g.beginPath();g.arc(W*0.14+13,H*0.45,8,0,Math.PI*2);g.fill();
+  g.fillStyle='#2a2118';g.fillRect(W*0.62,H*0.45,30,16);
+  g.strokeStyle=gold;g.lineWidth=2;
+  for(var wv=0;wv<3;wv++){g.beginPath();for(var xx=0;xx<=40;xx+=4){var yy=H*(0.75+wv*0.05)+Math.sin(xx*0.3)*4;if(xx===0)g.moveTo(W*0.3+xx,yy);else g.lineTo(W*0.3+xx,yy);}g.stroke();}
+ }
+ grainVignette(g,W,H);
+}
+function makeArtTexture(art){
+ var asp=ART_ASPECT[art.k]||1.33;
+ var W=256,H=Math.round(256/asp);
+ var c=document.createElement('canvas');c.width=W;c.height=H+30;
+ var g=c.getContext('2d');
+ paintArt(g,art.k,W,H,art.t);
+ // franja pie ya incluida en paint (30px)
+ var t=new THREE.CanvasTexture(c);return {tex:t,asp:asp};
+}
+function makeFrameMesh(art,maxW,maxH){
+ // marco madera vintage + panel albedo sepia, aspecto original preservado
+ var info=makeArtTexture(art),asp=info.asp;
+ var pw=maxW,ph=maxW/asp;
+ if(ph>maxH){ph=maxH;pw=maxH*asp;}
+ var grp=new THREE.Group();
+ var fw=pw+0.28,fh=ph+0.28;
+ var frame=new THREE.Mesh(new THREE.BoxGeometry(fw,fh,0.09),mat(0x5a4028));
+ grp.add(frame);
+ var inner=new THREE.Mesh(new THREE.BoxGeometry(fw-0.12,fh-0.12,0.1),mat(0xb8934a));
+ inner.position.z=0.005;grp.add(inner);
+ var artM=new THREE.Mesh(new THREE.PlaneGeometry(pw,ph),new THREE.MeshLambertMaterial({map:info.tex}));
+ artM.position.z=0.06;grp.add(artM);
+ // luz cálida sutil sobre el cuadro (integra con ambiente)
+ grp.userData.w=pw;grp.userData.h=ph;
+ return grp;
+}
+function placeGallery(list){
+ // list: [{x,y,z,ry,art}] cuadros en paredes
+ list.forEach(function(f){
+  var m=makeFrameMesh(f.art,2.5,1.9);
+  m.position.set(f.x,f.y,f.z);m.rotation.y=f.ry||0;
+  scene.add(m);
+ });
+}
 function addProp(mesh,x,z,ry){mesh.position.x=x;mesh.position.z=z;if(ry)mesh.rotation.y=ry;scene.add(mesh);return mesh;}
 function makeTable(){
  var g=new THREE.Group();
@@ -386,6 +527,12 @@ function buildZone(idx){
   addProp(makeTable(),-8,5);
   placeInteracts([[-6,-2.6,'audion'],[6,-2.2,'chispa'],[-8,5,'micro'],[W/2-2,1,'puerta']]);
   addSign('8XK · GARAJE CONRAD',0,3.2,-D/2+0.6);
+  // Galería época Sala 1 (pared norte, sepia, aspecto original)
+  placeGallery([
+   {x:-7,y:2.0,z:-D/2+0.6,ry:0,art:ZONES[0].objs[0].art},
+   {x:0,y:2.0,z:-D/2+0.6,ry:0,art:ZONES[0].objs[1].art},
+   {x:7,y:2.0,z:-D/2+0.6,ry:0,art:ZONES[0].objs[2].art}
+  ]);
  }else if(idx===1){
   // KDKA: consola, teletipo, antena
   var cons=new THREE.Group();
@@ -398,7 +545,12 @@ function buildZone(idx){
   var ant2=makeAntenna();addProp(ant2,9,6);
   placeInteracts([[0,-3.4,'consola'],[-7,-1.6,'teletipo'],[9,4.6,'antena'],[W/2-2,1,'puerta']]);
   addSign('KDKA · ON AIR · HARDING vs COX',0,3.2,-D/2+0.6);
- }else{
+  placeGallery([
+   {x:-7,y:2.0,z:-D/2+0.6,ry:0,art:ZONES[1].objs[0].art},
+   {x:0,y:2.0,z:-D/2+0.6,ry:0,art:ZONES[1].objs[1].art},
+   {x:7,y:2.0,z:-D/2+0.6,ry:0,art:ZONES[1].objs[2].art}
+  ]);
+ }else if(idx===2){
   // Azotea Coliseo: parapetos, tx 5W, cúpula teatro, cielo nocturno + ciudad
   addWall(-4,-2,6,0.6,1.1,0x6b5a4a);addWall(4,-2,6,0.6,1.1,0x6b5a4a);
   var tx=new THREE.Group();
@@ -412,6 +564,22 @@ function buildZone(idx){
   // tx5w (info) y parche (clave) separados para no solapar marcadores
   placeInteracts([[-6.5,-2.4,'tx5w'],[-3.2,-2.4,'parche'],[0,-5.6,'micro2'],[W/2-2,1,'puerta']]);
   addSign('COLISEO · PARSIFAL · 5 WATTS',0,3.4,-D/2+0.6);
+  placeGallery([
+   {x:-7,y:2.1,z:-D/2+0.6,ry:0,art:ZONES[2].objs[0].art},
+   {x:0,y:2.1,z:-D/2+0.6,ry:0,art:ZONES[2].objs[1].art},
+   {x:7,y:2.1,z:-D/2+0.6,ry:0,art:ZONES[2].objs[2].art}
+  ]);
+ }else{
+  // SALA 4 · Estudio Legado / Siglo XXI: galería comparativa final
+  addProp(makeTable(),-7,-6);addProp(makeTable(),0,-6);addProp(makeTable(),7,-6);
+  var ant4=makeAntenna();addProp(ant4,9,6);
+  placeInteracts([[-7,-4.6,'gal1'],[0,-4.6,'gal2'],[7,-4.6,'gal3'],[W/2-2,1,'puerta']]);
+  addSign('ESTUDIO LEGADO · 1920 → HOY',0,3.2,-D/2+0.6);
+  placeGallery([
+   {x:-7,y:2.0,z:-D/2+0.6,ry:0,art:ZONES[3].objs[0].art},
+   {x:0,y:2.0,z:-D/2+0.6,ry:0,art:ZONES[3].objs[1].art},
+   {x:7,y:2.0,z:-D/2+0.6,ry:0,art:ZONES[3].objs[2].art}
+  ]);
  }
  // Posición inicial jugador (centrada, cámara dentro de sala)
  player.position.set(-7,0,4);camYaw=2.5;camPitch=0.32;
@@ -693,12 +861,12 @@ function doAction(){
   return;
  }
  if(id==='puerta'){tryDoor();return;}
- if(id===ZONES[G.zone].keyId){openTutorial('puzzle'+G.zone);return;}
- // Secundarios: marcar visitado → verde ✓ + pista
+ if(id===ZONES[G.zone].keyId&&ZONES[G.zone].keyId){openCaption(def,true);return;}
+ // Secundarios y galería: pie de foto + marcar visitado (verde ✓)
  G.visited[G.zone][id]=true;
  saveGame();updateWaypoints();
  AU.blip(700,0.08,0.12,'square');
- toast('🔍 ['+def.step+'] '+def.name+' — '+def.info,3000);
+ openCaption(def,false);
 }
 
 /* ---------- Tutorial previo (pausa acción + tarjeta flotante) ---------- */
@@ -716,13 +884,30 @@ function openTutorial(kind){
  show('tutorial');
 }
 
-/* ---------- Puertas / guardado ---------- */
+/* ---------- Caption galería (tooltip histórico táctil) ---------- */
+var ART_ICON={portrait:'🧔',diagram:'📐',valves:'🔮',kdka:'🎙️',newspaper:'📰',transmitter:'🗼',locos:'👥',poster:'🎭',tx5w:'📻',evo:'📈',cabin:'🎧',legacy:'💡'};
+function openCaption(def,isKey){
+ // Pie de foto del cuadro sobre la estación + info del punto
+ G.mode='caption';
+ var art=def.art||null;
+ $('cap-title').textContent=art?art.t:def.name;
+ $('cap-step').textContent='['+def.step+'] '+def.station+' · '+def.name;
+ $('cap-icon').textContent=art?(ART_ICON[art.k]||'🖼️'):def.icon;
+ $('cap-body').textContent=(art?art.c+' ':'')+def.info;
+ var go=$('cap-go');
+ if(isKey){go.style.display='block';go.textContent='CONTINUAR AL PUZZLE ▶';G.pendingCaption={type:'puzzle'};}
+ else{go.style.display='none';G.pendingCaption={type:'close'};}
+ show('caption');
+}
+/* ---------- Puertas / guardado (4 salas) ---------- */
 function tryDoor(){
- var need=(G.zone+1)*100;
- if(G.zone===2){ // final: requiere todo
-  if(G.puzzleDone[2]&&G.triviaDone[2]){winGame();return;}
-  toast('🏆 Completa el parche + trivia de Parsifal para emitir.',2600);return;
+ if(G.zone===3){ // Sala 4 final: requiere galería completa
+  var v=G.visited[3]||{};
+  if(v.gal1&&v.gal2&&v.gal3){winGame();return;}
+  AU.err();
+  toast('🏆 Inspecciona los 3 paneles [1][2][3] antes de emitir la señal final.',2800);return;
  }
+ var need=(G.zone+1)*100;
  if(G.score>=need&&G.puzzleDone[G.zone]&&G.triviaDone[G.zone]){
   G.zone++;saveGame();
   saveToast('💾 Punto de guardado · Zona '+(G.zone+1)+' · ◆ JO · UNIAJC');
@@ -776,11 +961,11 @@ function winGame(){
 }
 
 /* ---------- Pantallas ---------- */
-var SCREENS=['menu','help','credits','tutorial','puzzle1','puzzle2','puzzle3','trivia','gameover','victory','pause'];
+var SCREENS=['menu','help','credits','tutorial','caption','puzzle1','puzzle2','puzzle3','trivia','gameover','victory','pause'];
 function show(id){
  SCREENS.forEach(function(s){$(s).classList.add('hidden');});
  if(id)$(id).classList.remove('hidden');
- var inGame=(G.mode==='play'||G.mode==='puzzle'||G.mode==='trivia'||G.mode==='tutorial');
+ var inGame=(G.mode==='play'||G.mode==='puzzle'||G.mode==='trivia'||G.mode==='tutorial'||G.mode==='caption');
  $('hud').classList.toggle('hidden',!inGame);
  $('objective').classList.toggle('hidden',!inGame);
  $('joy-left').classList.toggle('hidden',!(G.mode==='play'));
@@ -791,7 +976,7 @@ function show(id){
 }
 function startGame(fresh){
  AU.init();AU.resume();
- if(fresh){G.zone=0;G.score=0;G.lives=3;G.puzzleDone=[false,false,false];G.triviaDone=[false,false,false];G.doorOpen=[false,false,false];G.visited=[{},{},{}];G.pendingTutor=null;try{localStorage.removeItem('f1920_3d');}catch(e){}}
+ if(fresh){G.zone=0;G.score=0;G.lives=3;G.puzzleDone=[false,false,false,true];G.triviaDone=[false,false,false,true];G.doorOpen=[false,false,false,false];G.visited=[{},{},{},{}];G.pendingTutor=null;G.pendingCaption=null;try{localStorage.removeItem('f1920_3d');}catch(e){}}
  G.mode='play';G.paused=false;G.near=null;
  loadZone(G.zone);show(null);updateWaypoints();
  toast('📡 '+ZONES[G.zone].name+' — Sigue la ruta [1]→[2]→[3]→[4] dorada.',3800);
@@ -803,7 +988,7 @@ function togglePause(){
  show('pause');AU.click();
 }
 window.F1920={onBackPressed:function(){
- if(G.mode==='tutorial'){G.mode='play';G.pendingTutor=null;show(null);updateWaypoints();}
+ if(G.mode==='tutorial'||G.mode==='caption'){G.mode='play';G.pendingTutor=null;G.pendingCaption=null;show(null);updateWaypoints();}
  else if(G.mode==='play')togglePause();
 }};
 
@@ -909,8 +1094,9 @@ function puzzleSolved(){
 /* ---------- Trivia A-B-C-D hitbox amplio ---------- */
 var tr={lock:false};
 function openTrivia(){
- G.mode='trivia';
  var d=ZONES[G.zone].trivia;
+ if(!d){G.mode='play';show(null);updateWaypoints();return;}
+ G.mode='trivia';
  $('trivia-kicker').textContent='MÓDULO DE EVALUACIÓN · '+ZONES[G.zone].name.toUpperCase();
  $('trivia-q').textContent=d.q;
  $('trivia-ctx').textContent=d.ctx;
@@ -955,9 +1141,10 @@ function answerTrivia(i,btn){
    G.score+=100;G.triviaDone[G.zone]=true;G.doorOpen[G.zone]=true;
    saveGame();saveToast('💾 Punto de guardado · +100 Hz · ◆ JO · UNIAJC');
    updateHUD();updateWaypoints();
-   if(G.zone===2){winGame();return;}
+   if(G.zone===3){winGame();return;}
    G.mode='play';show(null);updateWaypoints();
-   toast('🚪 ¡Puerta desbloqueada! Sigue la flecha al [4] dorado y pulsa ABRIR.',3200);
+   if(G.zone===2)toast('🚪 ¡Galería desbloqueada! Ve al marco dorado para entrar al Legado.',3200);
+   else toast('🚪 ¡Puerta desbloqueada! Sigue la flecha al [4] dorado y pulsa ABRIR.',3200);
   }else{
    loseLife();
    if(G.lives<=0)return; // gameOver ya
@@ -970,7 +1157,14 @@ function answerTrivia(i,btn){
 /* ---------- Wiring UI ---------- */
 function wire(){
  $('btn-start').onclick=function(){AU.init();AU.resume();AU.click();startGame(true);};
- $('btn-continue').onclick=function(){AU.click();var s=loadSave();if(s){G.zone=s.zone||0;G.score=s.score||0;G.lives=s.lives||3;G.puzzleDone=s.pd||[false,false,false];G.triviaDone=s.td||[false,false,false];G.visited=s.vis||[{},{},{}];}startGame(false);};
+ $('btn-continue').onclick=function(){AU.click();var s=loadSave();if(s){G.zone=s.zone||0;G.score=s.score||0;G.lives=s.lives||3;G.puzzleDone=(s.pd&&s.pd.length===4)?s.pd:[!!(s.pd&&s.pd[0]),!!(s.pd&&s.pd[1]),!!(s.pd&&s.pd[2]),true];G.triviaDone=(s.td&&s.td.length===4)?s.td:[!!(s.td&&s.td[0]),!!(s.td&&s.td[1]),!!(s.td&&s.td[2]),true];G.visited=s.vis||[{},{},{},{}];while(G.visited.length<4)G.visited.push({});}startGame(false);};
+ $('cap-close').onclick=function(){AU.click();G.pendingCaption=null;G.mode='play';show(null);updateWaypoints();};
+ $('cap-go').onclick=function(){
+  AU.click();AU.resume();
+  var p=G.pendingCaption;G.pendingCaption=null;
+  if(p&&p.type==='puzzle'){openTutorial('puzzle'+G.zone);}
+  else{G.mode='play';show(null);updateWaypoints();}
+ };
  $('tut-btn').onclick=function(){
   AU.click();AU.resume();
   var p=G.pendingTutor;G.pendingTutor=null;
@@ -986,7 +1180,7 @@ function wire(){
  $('btn-pause').onclick=function(){togglePause();};
  $('btn-resume').onclick=function(){AU.click();G.mode='play';G.paused=false;show(null);};
  $('btn-pause-menu').onclick=function(){AU.click();G.mode='menu';show('menu');};
- $('btn-retry-zone').onclick=function(){AU.click();G.lives=3;updateHUD();G.mode='play';loadZone(G.zone);show(null);};
+ $('btn-retry-zone').onclick=function(){AU.click();G.lives=3;updateHUD();G.mode='play';loadZone(G.zone);show(null);updateWaypoints();};
  $('btn-retry-l1').onclick=function(){AU.click();startGame(true);};
  $('btn-go-menu').onclick=function(){AU.click();G.mode='menu';show('menu');};
  $('btn-win-menu').onclick=function(){AU.click();G.mode='menu';show('menu');refreshMenu();};

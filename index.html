@@ -91,6 +91,7 @@
         🖥️ <b>En PC:</b> <b>WASD / Flechas</b> mover · <b>ratón arrastrado</b> cámara · <b>E</b> interactuar.<br>
         📱 <b>En móvil:</b> <b>joystick izquierdo flotante</b> 360° · <b>arrastra derecha</b> cámara (gestures táctiles).<br>
         🔢 <b>Ruta numerada [1][2][3][4]:</b> sigue los marcadores flotantes. <b style="color:#8a6d00">Dorado parpadeante + flecha ▼</b> = siguiente objetivo · <b style="color:#666">Gris 🔒</b> = bloqueado · <b style="color:#2f7d2f">Verde ✓</b> = completado.<br>
+        🖼️ <b>Galería de época:</b> cada estación tiene su cuadro sepia en la pared — inspecciónalo para ver su pie de foto histórico.<br>
         📋 <b>Tutorial previo:</b> antes de cada puzzle/trivia verás una tarjeta con pasos y el botón <b>¡ENTENDIDO! COMENZAR</b>.<br>
         🔧 <b>Botón de acción:</b> aparece con ícono retro al acercarte a un objeto.<br>
         🧩 <b>Loop:</b> 1) Explora en orden → 2) Tutorial + puzzle → 3) Tutorial + trivia A-B-C-D.<br>
@@ -176,6 +177,19 @@
     </div>
   </div>
 
+  <!-- CAPTION: pie de foto / tooltip histórico táctil -->
+  <div id="caption" class="screen hidden">
+    <div class="panel" id="caption-panel">
+      <div class="small" style="color:#8a6d2a;font-weight:bold;letter-spacing:1px">🖼️ GALERÍA DE ÉPOCA · PIE DE FOTO</div>
+      <h1 style="font-size:21px" id="cap-title">Cuadro histórico</h1>
+      <div class="small" id="cap-step" style="font-weight:bold"></div>
+      <div class="divider"></div>
+      <div id="cap-icon" style="font-size:52px;line-height:1">🖼️</div>
+      <div style="font-size:14.5px;line-height:1.65;margin:10px 0" id="cap-body"></div>
+      <div class="btn-row"><button class="btn btn-dark" id="cap-close">◀ SEGUIR EXPLORANDO</button><button class="btn btn-gold" id="cap-go" style="display:none">CONTINUAR ▶</button></div>
+    </div>
+  </div>
+
   <!-- TRIVIA -->
   <div id="trivia" class="screen hidden">
     <div class="panel" id="trivia-panel">
@@ -217,6 +231,7 @@
       <div class="stat-row"><span>★ Garaje Conrad</span><span>El Audión amplifica la voz ✓</span></div>
       <div class="stat-row"><span>★ KDKA electoral</span><span>Harding vs. Cox en vivo ✓</span></div>
       <div class="stat-row"><span>★ Azotea Coliseo</span><span>Parsifal cruza el éter ✓</span></div>
+      <div class="stat-row"><span>★ Sala 4 Legado</span><span>Galería 1920→hoy ✓</span></div>
       <div class="stat-row"><span>◉ Frecuencia total</span><b id="win-score">300 Hz</b></div>
       <div class="stat-row"><span>🔋 Tubos restantes</span><b id="win-lives">3/3</b></div>
       <div class="small" style="margin-top:8px"><i>En 1920 la radio dejó de ser telégrafo sin hilos para volverse medio de masas.</i></div>
