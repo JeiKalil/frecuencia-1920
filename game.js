@@ -14,7 +14,7 @@ function dist2D(ax,az,bx,bz){var dx=ax-bx,dz=az-bz;return Math.sqrt(dx*dx+dz*dz)
 function toast(msg,ms){var t=$('toast');t.textContent=msg;t.style.display='block';clearTimeout(t._tm);t._tm=setTimeout(function(){t.style.display='none';},ms||2600);}
 function saveToast(msg){var s=$('save-toast');$('save-txt').textContent=msg;s.style.display='flex';clearTimeout(s._tm);s._tm=setTimeout(function(){s.style.display='none';},2400);}
 
-/* ---------- Datos históricos (3 zonas del prompt) + RUTA NUMERADA ---------- */
+/* ---------- Datos históricos (4 salas × 3 mesas) + RUTA NUMERADA ---------- */
 var ZONES=[
  {name:'ZONA 1 · Garaje de Frank Conrad',sub:'Pittsburgh, EE. UU. · 1920',
   intro:'Halla las válvulas termoiónicas y el micrófono de carbón. Calibra el 8XK.',
@@ -232,6 +232,7 @@ function makeCircleTex(){
 /* ---------- Construcción de zonas (expandible) + WAYPOINTS NUMERADOS ---------- */
 var waypoints=[]; // {sprite,mesh,objId,step}
 var routeArrow=null;
+var galleryFrames=[]; // {x,z,art} cuadros inspeccionables del visor HD (decor, sin misión)
 function clearZone(){
  var i;for(i=scene.children.length-1;i>=0;i--){var o=scene.children[i];
   if(o===hemi||o===dir||o===amb||o===player)continue;
@@ -239,7 +240,7 @@ function clearZone(){
   if(o.geometry)o.geometry.dispose();
   if(o.material&&o.material.map&&o.material.map.isCanvasTexture){try{o.material.map.dispose();}catch(e){}try{o.material.dispose();}catch(e){}}
  }
- colliders=[];interactMeshes=[];doorMesh=null;waypoints=[];routeArrow=null;
+ colliders=[];interactMeshes=[];doorMesh=null;waypoints=[];routeArrow=null;galleryFrames=[];G.nearFrame=null;
 }
 /* --- Ruta: estado por estación (orden secuencial) --- */
 function orderedObjs(z){
@@ -615,14 +616,18 @@ function makeFrameMesh(art,maxW,maxH){
  return grp;
 }
 function placeGallery(list){
- // list: [{x,y,z,ry,art}] cuadros en paredes
+ // list: [{x,y,z,ry,art}] cuadros en paredes (también registrados para el visor HD)
  list.forEach(function(f){
   var m=makeFrameMesh(f.art,2.5,1.9);
   m.position.set(f.x,f.y,f.z);m.rotation.y=f.ry||0;
   scene.add(m);
+  galleryFrames.push({x:f.x,z:f.z,art:f.art});
  });
 }
 function addProp(mesh,x,z,ry){mesh.position.x=x;mesh.position.z=z;if(ry)mesh.rotation.y=ry;scene.add(mesh);return mesh;}
+/* Props decorativos con colisionador estático: ambientan sin bloquear la ruta.
+   hw/hd = semianchos del AABB. Sin interactividad (no son hotspots). */
+function addSolid(mesh,x,z,hw,hd,ry){addProp(mesh,x,z,ry);colliders.push({x0:x-hw,x1:x+hw,z0:z-hd,z1:z+hd});return mesh;}
 function makeTable(){
  var g=new THREE.Group();
  var top=new THREE.Mesh(new THREE.BoxGeometry(2.2,0.12,1.1),mat(0x6b4a2a));top.position.y=0.95;g.add(top);
@@ -650,6 +655,42 @@ function makeInteractMarker(color){
  var m=new THREE.Mesh(new THREE.OctahedronGeometry(0.3,0),matEm(color||0xffd25e,0xffb840,0.9));
  return m;
 }
+/* ---------- Mobiliario de trabajo (visual, sin colisionadores) ---------- */
+function makeRack(){ // rack de válvulas / repuestos
+ var g=new THREE.Group();
+ var body=new THREE.Mesh(new THREE.BoxGeometry(1.4,1.8,0.5),mat(0x4a3a26));body.position.y=0.9;g.add(body);
+ for(var r=0;r<3;r++)for(var c=0;c<4;c++){
+  var v=new THREE.Mesh(new THREE.CylinderGeometry(0.07,0.09,0.22,6),matEm(0xc8b890,0xff9a3c,0.35));
+  v.position.set(-0.45+c*0.3,0.5+r*0.5,0.28);g.add(v);}
+ return g;
+}
+function makeCabinet(){ // armario de discos / archivos
+ var g=new THREE.Group();
+ var body=new THREE.Mesh(new THREE.BoxGeometry(1.2,1.6,0.6),mat(0x5a4632));body.position.y=0.8;g.add(body);
+ for(var i=0;i<4;i++){var d=new THREE.Mesh(new THREE.BoxGeometry(1.0,0.06,0.5),mat(0x2a2118));d.position.set(0,0.35+i*0.32,0.05);g.add(d);}
+ var disc=new THREE.Mesh(new THREE.CylinderGeometry(0.28,0.28,0.03,12),mat(0x1a1a1a));disc.position.set(0,1.75,0);g.add(disc);
+ return g;
+}
+function makeToolbox(){ // caja de herramientas / soldadura
+ var g=new THREE.Group();
+ var box=new THREE.Mesh(new THREE.BoxGeometry(0.9,0.5,0.5),mat(0x6b3a2a));box.position.y=0.25;g.add(box);
+ var iron=new THREE.Mesh(new THREE.CylinderGeometry(0.03,0.03,0.7,6),mat(0x888880));iron.rotation.z=1.1;iron.position.set(0.1,0.62,0);g.add(iron);
+ var spool=new THREE.Mesh(new THREE.CylinderGeometry(0.12,0.12,0.16,8),mat(0xb8a060));spool.position.set(-0.25,0.58,0.1);g.add(spool);
+ return g;
+}
+function makePedestal(){ // pedestal de exhibición (Sala 4)
+ var g=new THREE.Group();
+ var base=new THREE.Mesh(new THREE.BoxGeometry(0.8,1.0,0.8),mat(0x3a3230));base.position.y=0.5;g.add(base);
+ var top=new THREE.Mesh(new THREE.BoxGeometry(0.9,0.08,0.9),mat(0xb8934a));top.position.y=1.04;g.add(top);
+ var orb=new THREE.Mesh(new THREE.OctahedronGeometry(0.22,0),matEm(0xffd25e,0xaa7700,0.7));orb.position.y=1.4;g.add(orb);
+ g.userData.orb=orb;return g;
+}
+function makeMastProp(){ // mástil de antena de hilo (azotea)
+ var g=new THREE.Group();
+ var pole=new THREE.Mesh(new THREE.CylinderGeometry(0.06,0.09,3.4,6),mat(0x555049));pole.position.y=1.7;g.add(pole);
+ var wire=new THREE.Mesh(new THREE.BoxGeometry(3.2,0.02,0.02),mat(0x999488));wire.position.y=3.3;g.add(wire);
+ return g;
+}
 function buildZone(idx){
  clearZone();
  var W=26,D=20;
@@ -674,6 +715,7 @@ function buildZone(idx){
   var coil=new THREE.Mesh(new THREE.TorusGeometry(0.5,0.14,6,10),mat(0x8a6f3e));addProp(coil,6,-3.4);coil.position.y=1.4;coil.rotation.x=0.4;
   var ant=makeAntenna();addProp(ant,9,6);
   addProp(makeTable(),-8,5);
+  addSolid(makeToolbox(),-4,-1.5,0.45,0.25);addSolid(makeCabinet(),-9.5,3.2,0.6,0.3);addSolid(makeRack(),8,-3.6,0.7,0.25);
   placeInteracts([[-6,-2.6,'audion'],[6,-2.2,'chispa'],[-8,5,'micro'],[W/2-2,1,'puerta']]);
   addSign('8XK · GARAJE CONRAD',0,3.2,-D/2+0.6);
   // Galería época Sala 1 (pared norte, sepia, aspecto original)
@@ -705,6 +747,7 @@ function buildZone(idx){
   addProp(makeTable(),-7,-3);addProp(makeTable(),7,-3);
   var tel=new THREE.Mesh(new THREE.BoxGeometry(1.6,1.2,1),mat(0xd8cba8));addProp(tel,-7,-3);tel.position.y=1.6;
   var ant2=makeAntenna();addProp(ant2,9,6);
+  addSolid(makeToolbox(),2,-2.2,0.45,0.25);addSolid(makeCabinet(),-8.6,-0.2,0.6,0.3);addSolid(makeRack(),10.8,3.4,0.7,0.25);
   placeInteracts([[0,-3.4,'consola'],[-7,-1.6,'teletipo'],[9,4.6,'antena'],[W/2-2,1,'puerta']]);
   addSign('KDKA · ON AIR · HARDING vs COX',0,3.2,-D/2+0.6);
   placeGallery([
@@ -737,6 +780,7 @@ function buildZone(idx){
   // Luces ciudad (puntos baratos)
   for(var k=0;k<24;k++){var l=new THREE.Mesh(new THREE.SphereGeometry(0.09,4,3),new THREE.MeshBasicMaterial({color:0xffd98a}));l.position.set(-12+Math.random()*24,0.4+Math.random()*1.2,-D/2-2-Math.random()*6);scene.add(l);}
   // tx5w (info) y parche (clave) separados para no solapar marcadores
+  addSolid(makeToolbox(),-7.8,-1,0.45,0.25);addSolid(makeMastProp(),2.6,-5.4,0.15,0.15);addSolid(makeRack(),-1.4,-1.4,0.7,0.25);
   placeInteracts([[-6.5,-2.4,'tx5w'],[-3.2,-2.4,'parche'],[0,-5.6,'micro2'],[W/2-2,1,'puerta']]);
   addSign('COLISEO · PARSIFAL · 5 WATTS',0,3.4,-D/2+0.6);
   placeGallery([
@@ -761,6 +805,7 @@ function buildZone(idx){
   // SALA 4 · Estudio Legado / Siglo XXI: galería comparativa final
   addProp(makeTable(),-7,-6);addProp(makeTable(),0,-6);addProp(makeTable(),7,-6);
   var ant4=makeAntenna();addProp(ant4,9,6);
+  addSolid(makePedestal(),-4,-7.6,0.4,0.4);addSolid(makePedestal(),4,-7.6,0.4,0.4);addSolid(makeCabinet(),10,-3,0.6,0.3);
   placeInteracts([[-7,-4.6,'gal1'],[0,-4.6,'gal2'],[7,-4.6,'gal3'],[W/2-2,1,'puerta']]);
   addSign('ESTUDIO LEGADO · 1920 → HOY',0,3.2,-D/2+0.6);
   placeGallery([
@@ -806,7 +851,7 @@ function placeInteracts(list){
  // list: [x,z,objId] — crea octaedro + sprite billboard numerado [N] con glow
  list.forEach(function(p){
   var def=null;ZONES[G.zone].objs.forEach(function(o){if(o.id===p[2])def=o;});
-  if(!def)return;
+  if(!def){try{console.warn('[F1920] marcador sin mesa: '+p[2]+' (zona '+G.zone+')');}catch(e){}return;}
   var st=getObjState(G.zone,p[2]);
   var isKey=(p[2]===ZONES[G.zone].keyId)||p[2]==='puerta';
   var baseCol=st==='done'?0x53d853:(st==='active'?0xffd25e:0x8a8a8a);
@@ -886,7 +931,7 @@ function setupInput(){
  canvas.addEventListener('mousedown',function(e){dragging=true;lx=e.clientX;ly=e.clientY;AU.init();AU.resume();});
  window.addEventListener('mousemove',function(e){if(dragging&&G.mode==='play'){camYaw-=(e.clientX-lx)*0.005;camPitch=clamp(camPitch+(e.clientY-ly)*0.004,0.05,1.1);lx=e.clientX;ly=e.clientY;}});
  window.addEventListener('mouseup',function(){dragging=false;});
- window.addEventListener('keydown',function(e){keys[e.key.toLowerCase()]=true;if(e.key==='e'||e.key==='E')doAction();if(e.key==='Escape')togglePause();});
+ window.addEventListener('keydown',function(e){keys[e.key.toLowerCase()]=true;if(e.key==='e'||e.key==='E')doAction();if(e.key==='Escape'){if(G.mode==='viewer')closeViewer();else togglePause();}});
  window.addEventListener('keyup',function(e){keys[e.key.toLowerCase()]=false;});
 }
 function readKeys(){
@@ -909,7 +954,7 @@ function animate(){
   updatePlayer(dt);
   updateCamera(dt);
   updateInteracts(dt);
-  // Claridad audio según proximidad a objetivo clave (la música se aclara al acercarse)
+  // Claridad audio según proximidad a la mesa clave (la música se aclara al acercarse)
   var dMin=99;interactMeshes.forEach(function(m){if(m.userData.objId===ZONES[G.zone].keyId){dMin=Math.min(dMin,dist2D(player.position.x,player.position.z,m.position.x,m.position.z));}});
   var cl=G.puzzleDone[G.zone]?1:clamp(1-dMin/10,0.05,0.9);
   G.clarity=lerp(G.clarity,cl,dt*2);AU.setClarity(G.clarity);
@@ -1017,6 +1062,16 @@ function updateInteracts(dt){
   if(d<bd){bd=d;best=m;}
  });
  G.near=best;
+ // Visor HD: independiente de misiones — cuadro más cercano a ≤2.6 m (aunque haya misión cerca)
+ var bf=null,bd2=2.6;
+ for(var fi=0;fi<galleryFrames.length;fi++){
+  var fr=galleryFrames[fi];
+  var dd=dist2D(player.position.x,player.position.z,fr.x,fr.z);
+  if(dd<bd2){bd2=dd;bf=fr;}
+ }
+ G.nearFrame=bf;
+ var vb=$('btn-view');
+ if(vb)vb.style.display=(bf&&G.mode==='play')?'flex':'none';
  var btn=$('btn-action');
  if(best&&G.mode==='play'){
   var def=null;ZONES[G.zone].objs.forEach(function(o){if(o.id===best.userData.objId)def=o;});
@@ -1032,10 +1087,10 @@ function updateInteracts(dt){
     $('action-txt').textContent='['+def.step+'] Completado';
    }else{
     // Activo: dorado
-    if(def.id==='puerta'){
-     var need=(G.zone+1)*100;
-     if(G.score<need){$('action-ico').textContent='🔒';$('action-txt').textContent='Puerta ('+G.score+'/'+need+' Hz)';}
-     else{$('action-ico').textContent=def.icon;$('action-txt').textContent='['+def.step+'] '+def.label;}
+     if(def.id==='puerta'){
+      var need=(G.zone+1)*100;
+      if(G.score<need){$('action-ico').textContent='🔒';$('action-txt').textContent='Puerta ('+G.score+'/'+need+' Hz)';}
+      else{$('action-ico').textContent=def.icon;$('action-txt').textContent='['+def.step+'] '+def.label;}
     }else{$('action-ico').textContent=def.icon;$('action-txt').textContent='['+def.step+'] '+def.label;}
    }
    btn.style.display='flex';
@@ -1096,11 +1151,63 @@ function openCaption(def,isKey){
  $('cap-icon').textContent=art?(ART_ICON[art.k]||'🖼️'):def.icon;
  $('cap-body').textContent=(art?art.c+' ':'')+def.info;
  var go=$('cap-go');
- if(isKey){go.style.display='block';go.textContent='CONTINUAR AL PUZZLE ▶';G.pendingCaption={type:'puzzle'};}
- else{go.style.display='none';G.pendingCaption={type:'close'};}
- show('caption');
+  if(isKey){go.style.display='block';go.textContent='CONTINUAR AL PUZZLE ▶';G.pendingCaption={type:'puzzle'};}
+  else{go.style.display='none';G.pendingCaption={type:'close'};}
+  show('caption');
 }
-/* ---------- Puertas / guardado (4 salas) ---------- */
+/* ---------- Visor HD de cuadros (zoom táctil + ficha de latón) ---------- */
+var VZ={s:1,tx:0,ty:0,pinch:0,pans:null};
+function viewerArtURL(art){
+ var f=ART_PHOTO[art.k];
+ return f?('img/'+f):null;
+}
+function openViewer(fr){
+ if(!fr||!fr.art)return;
+ AU.click();AU.resume();
+ G.mode='viewer';
+ var art=fr.art;
+ $('viewer-title').textContent=art.t||'Cuadro histórico';
+ $('viewer-cap').textContent=art.c||'';
+ var img=$('viewer-img'),url=viewerArtURL(art);
+ vzReset();
+ if(url){
+  img.onload=function(){try{img.style.opacity='1';}catch(e){}};
+  img.onerror=function(){viewerProcedural(art);};
+  img.style.opacity='0';img.src=url;
+ }else{viewerProcedural(art);}
+ show('viewer');
+}
+function viewerProcedural(art){
+ // Sin foto: regenera el albedo vectorial en grande y lo muestra
+ try{
+  var asp=ART_ASPECT[art.k]||1.33,W=512,H=Math.round(512/asp);
+  var c=document.createElement('canvas');c.width=W;c.height=H+44;
+  var g=c.getContext('2d');
+  paintArt(g,art.k,W,H,art.t);
+  var img=$('viewer-img');img.onload=function(){try{img.style.opacity='1';}catch(e){}};
+  img.style.opacity='0';img.src=c.toDataURL('image/jpeg',0.85);
+ }catch(e){$('viewer-img').style.opacity='1';}
+}
+function vzReset(){VZ.s=1;VZ.tx=0;VZ.ty=0;VZ.pinch=0;VZ.pans=null;vzApply();}
+function vzApply(){
+ var img=$('viewer-img');if(!img)return;
+ img.style.transform='translate('+VZ.tx+'px,'+VZ.ty+'px) scale('+VZ.s+')';
+}
+function vzZoomAt(f,cx,cy){
+ var box=$('viewer-stage').getBoundingClientRect();
+ var ns=clamp(VZ.s*f,1,4);
+ var k=ns/VZ.s;
+ var ox=(cx===undefined?box.width/2:cx-box.left)-box.width/2;
+ var oy=(cy===undefined?box.height/2:cy-box.top)-box.height/2;
+ VZ.tx=(VZ.tx-ox)*k+ox;VZ.ty=(VZ.ty-oy)*k+oy;VZ.s=ns;
+ var lim=220*VZ.s;
+ VZ.tx=clamp(VZ.tx,-lim,lim);VZ.ty=clamp(VZ.ty,-lim,lim);
+ vzApply();
+}
+function closeViewer(){
+ G.mode='play';show(null);updateWaypoints();
+}
+/* ---------- Puertas / guardado ---------- */
 function tryDoor(){
  if(G.zone===3){ // Sala 4 final: requiere galería completa
   var v=G.visited[3]||{};
@@ -1162,22 +1269,22 @@ function winGame(){
 }
 
 /* ---------- Pantallas ---------- */
-var SCREENS=['menu','help','credits','tutorial','caption','puzzle1','puzzle2','puzzle3','trivia','gameover','victory','pause'];
+var SCREENS=['menu','help','credits','tutorial','caption','puzzle1','puzzle2','puzzle3','viewer','trivia','gameover','victory','pause'];
 function show(id){
  SCREENS.forEach(function(s){$(s).classList.add('hidden');});
  if(id)$(id).classList.remove('hidden');
- var inGame=(G.mode==='play'||G.mode==='puzzle'||G.mode==='trivia'||G.mode==='tutorial'||G.mode==='caption');
+ var inGame=(G.mode==='play'||G.mode==='puzzle'||G.mode==='trivia'||G.mode==='tutorial'||G.mode==='caption'||G.mode==='viewer');
  $('hud').classList.toggle('hidden',!inGame);
  $('objective').classList.toggle('hidden',!inGame);
  $('joy-left').classList.toggle('hidden',!(G.mode==='play'));
  $('joy-right').classList.toggle('hidden',!(G.mode==='play'));
  $('btn-pause').classList.toggle('hidden',!(G.mode==='play'));
  $('touch-hint').classList.toggle('hidden',!(G.mode==='play'));
- if(G.mode!=='play')$('btn-action').style.display='none';
+ if(G.mode!=='play'){$('btn-action').style.display='none';var _vb=$('btn-view');if(_vb)_vb.style.display='none';}
 }
 function startGame(fresh){
  AU.init();AU.resume();
- if(fresh){G.zone=0;G.score=0;G.lives=3;G.puzzleDone=[false,false,false,true];G.triviaDone=[false,false,false,true];G.doorOpen=[false,false,false,false];G.visited=[{},{},{},{}];G.pendingTutor=null;G.pendingCaption=null;try{localStorage.removeItem('f1920_3d');}catch(e){}}
+  if(fresh){G.zone=0;G.score=0;G.lives=3;G.puzzleDone=[false,false,false,true];G.triviaDone=[false,false,false,true];G.doorOpen=[false,false,false,false];G.visited=[{},{},{},{}];G.pendingTutor=null;G.pendingCaption=null;try{localStorage.removeItem('f1920_3d');}catch(e){}}
  G.mode='play';G.paused=false;G.near=null;
  loadZone(G.zone);show(null);updateWaypoints();
  toast('📡 '+ZONES[G.zone].name+' — Sigue la ruta [1]→[2]→[3]→[4] dorada.',3800);
@@ -1189,7 +1296,8 @@ function togglePause(){
  show('pause');AU.click();
 }
 window.F1920={onBackPressed:function(){
- if(G.mode==='tutorial'||G.mode==='caption'){G.mode='play';G.pendingTutor=null;G.pendingCaption=null;show(null);updateWaypoints();}
+ if(G.mode==='viewer'){closeViewer();}
+ else if(G.mode==='tutorial'||G.mode==='caption'){G.mode='play';G.pendingTutor=null;G.pendingCaption=null;show(null);updateWaypoints();}
  else if(G.mode==='play')togglePause();
 }};
 
@@ -1299,6 +1407,7 @@ function openTrivia(){
  if(!d){G.mode='play';show(null);updateWaypoints();return;}
  G.mode='trivia';
  $('trivia-kicker').textContent='MÓDULO DE EVALUACIÓN · '+ZONES[G.zone].name.toUpperCase();
+ $('trivia-kicker').textContent='MÓDULO DE EVALUACIÓN · '+ZONES[G.zone].name.toUpperCase();
  $('trivia-q').textContent=d.q;
  $('trivia-ctx').textContent=d.ctx;
  var box=$('trivia-opts');box.innerHTML='';
@@ -1342,7 +1451,6 @@ function answerTrivia(i,btn){
    G.score+=100;G.triviaDone[G.zone]=true;G.doorOpen[G.zone]=true;
    saveGame();saveToast('💾 Punto de guardado · +100 Hz · ◆ JO · UNIAJC');
    updateHUD();updateWaypoints();
-   if(G.zone===3){winGame();return;}
    G.mode='play';show(null);updateWaypoints();
    if(G.zone===2)toast('🚪 ¡Galería desbloqueada! Ve al marco dorado para entrar al Legado.',3200);
    else toast('🚪 ¡Puerta desbloqueada! Sigue la flecha al [4] dorado y pulsa ABRIR.',3200);
@@ -1358,7 +1466,7 @@ function answerTrivia(i,btn){
 /* ---------- Wiring UI ---------- */
 function wire(){
  $('btn-start').onclick=function(){AU.init();AU.resume();AU.click();startGame(true);};
- $('btn-continue').onclick=function(){AU.click();var s=loadSave();if(s){G.zone=s.zone||0;G.score=s.score||0;G.lives=s.lives||3;G.puzzleDone=(s.pd&&s.pd.length===4)?s.pd:[!!(s.pd&&s.pd[0]),!!(s.pd&&s.pd[1]),!!(s.pd&&s.pd[2]),true];G.triviaDone=(s.td&&s.td.length===4)?s.td:[!!(s.td&&s.td[0]),!!(s.td&&s.td[1]),!!(s.td&&s.td[2]),true];G.visited=s.vis||[{},{},{},{}];while(G.visited.length<4)G.visited.push({});}startGame(false);};
+ $('btn-continue').onclick=function(){AU.click();var s=loadSave();if(s){G.zone=s.zone||0;G.score=s.score||0;G.lives=(s.lives===undefined?3:s.lives);G.puzzleDone=s.pd||[false,false,false,true];G.triviaDone=s.td||[false,false,false,true];G.visited=s.vis||[{},{},{},{}];while(G.visited.length<4)G.visited.push({});}startGame(false);};
  $('cap-close').onclick=function(){AU.click();G.pendingCaption=null;G.mode='play';show(null);updateWaypoints();};
  $('cap-go').onclick=function(){
   AU.click();AU.resume();
@@ -1378,6 +1486,11 @@ function wire(){
  $('btn-help').onclick=function(){AU.click();show('help');};
  $('btn-help-back').onclick=function(){AU.click();G.mode='menu';show('menu');};
  $('btn-action').addEventListener('click',function(e){e.preventDefault();doAction();});
+ var _bv=$('btn-view');
+ if(_bv)_bv.addEventListener('click',function(e){e.preventDefault();if(G.mode==='play'&&G.nearFrame)openViewer(G.nearFrame);});
+ var _vc=$('viewer-close');
+ if(_vc)_vc.addEventListener('click',function(e){e.preventDefault();AU.click();closeViewer();});
+ wireViewerZoom();
  $('btn-pause').onclick=function(){togglePause();};
  $('btn-resume').onclick=function(){AU.click();G.mode='play';G.paused=false;show(null);};
  $('btn-pause-menu').onclick=function(){AU.click();G.mode='menu';show('menu');};
@@ -1393,7 +1506,7 @@ function wire(){
   if(Math.abs(v-p1.target)<=p1.tol){clearInterval(p2.timer);puzzleSolved();}
   else{AU.err();AU.staticBurst(0.4);toast('📻 Aún hay estática. Busca la zona verde (82–94%).',2200);}
  };
- $('p1-cancel').onclick=function(){AU.click();G.mode='play';show(null);};
+ $('p1-cancel').onclick=function(){AU.click();G.mode='play';show(null);updateWaypoints();};
  // P2
  $('p2-freq').addEventListener('input',function(){p2.f=parseInt(this.value,10);p2draw();});
  $('p2-pow').addEventListener('input',function(){p2.p=parseInt(this.value,10);p2draw();});
@@ -1402,7 +1515,7 @@ function wire(){
   if(okF&&okP){clearInterval(p2.timer);p2.run=false;puzzleSolved();}
   else{AU.err();toast('📡 Señal inestable. Frecuencia ~75% y Potencia ~65% en verde.',2300);}
  };
- $('p2-cancel').onclick=function(){AU.click();clearInterval(p2.timer);p2.run=false;G.mode='play';show(null);};
+ $('p2-cancel').onclick=function(){AU.click();clearInterval(p2.timer);p2.run=false;G.mode='play';show(null);updateWaypoints();};
  // P3
  $('p3-reset').onclick=function(){AU.click();p3init();};
  $('p3-ok').onclick=function(){
@@ -1410,9 +1523,63 @@ function wire(){
   if(ok)puzzleSolved();
   else{AU.err();toast('🔌 Conexión incorrecta. Orden: A→MIC, B→ANTENA, C→TIERRA.',2400);}
  };
- $('p3-cancel').onclick=function(){AU.click();G.mode='play';show(null);};
+ $('p3-cancel').onclick=function(){AU.click();G.mode='play';show(null);updateWaypoints();};
  // Canvas click = init audio (autoplay policy)
  document.addEventListener('pointerdown',function(){AU.init();AU.resume();},{passive:true});
+}
+/* ---------- Zoom táctil (pinch+pan) y PC (rueda+arrastre) del visor ---------- */
+function wireViewerZoom(){
+ var st=$('viewer-stage');if(!st||st._wired)return;st._wired=true;
+ var touches={},mdrag=null;
+ function tdist(){var k=Object.keys(touches);if(k.length<2)return 0;
+  var a=touches[k[0]],b=touches[k[1]];
+  return Math.sqrt((a.x-b.x)*(a.x-b.x)+(a.y-b.y)*(a.y-b.y));}
+ st.addEventListener('touchstart',function(e){
+  if(G.mode!=='viewer')return;
+  for(var i=0;i<e.changedTouches.length;i++){var t=e.changedTouches[i];touches[t.identifier]={x:t.clientX,y:t.clientY};}
+  if(Object.keys(touches).length===2)VZ.pinch=tdist()||0;
+  else if(Object.keys(touches).length===1){var k=Object.keys(touches)[0];VZ.pans={x:touches[k].x,y:touches[k].y};}
+  e.preventDefault();
+ },{passive:false});
+ st.addEventListener('touchmove',function(e){
+  if(G.mode!=='viewer')return;
+  for(var i=0;i<e.changedTouches.length;i++){var t=e.changedTouches[i];if(touches[t.identifier])touches[t.identifier]={x:t.clientX,y:t.clientY};}
+  var ks=Object.keys(touches);
+  if(ks.length===2){
+   var d=tdist();
+   if(VZ.pinch>0&&d>0)vzZoomAt(d/VZ.pinch);
+   VZ.pinch=d;VZ.pans=null;
+  }else if(ks.length===1&&VZ.pans){
+   var p=touches[ks[0]];
+   VZ.tx+=p.x-VZ.pans.x;VZ.ty+=p.y-VZ.pans.y;
+   var lim=220*VZ.s;VZ.tx=clamp(VZ.tx,-lim,lim);VZ.ty=clamp(VZ.ty,-lim,lim);
+   VZ.pans={x:p.x,y:p.y};vzApply();
+  }
+  e.preventDefault();
+ },{passive:false});
+ function tEnd(e){
+  for(var i=0;i<e.changedTouches.length;i++)delete touches[e.changedTouches[i].identifier];
+  if(Object.keys(touches).length<2)VZ.pinch=0;
+  if(Object.keys(touches).length===1){var k=Object.keys(touches)[0];VZ.pans={x:touches[k].x,y:touches[k].y};}
+  else VZ.pans=null;
+ }
+ st.addEventListener('touchend',tEnd);st.addEventListener('touchcancel',tEnd);
+ st.addEventListener('wheel',function(e){
+  if(G.mode!=='viewer')return;
+  e.preventDefault();
+  vzZoomAt(e.deltaY<0?1.15:1/1.15,e.clientX,e.clientY);
+ },{passive:false});
+ st.addEventListener('mousedown',function(e){
+  if(G.mode!=='viewer')return;
+  mdrag={x:e.clientX,y:e.clientY};e.preventDefault();
+ });
+ window.addEventListener('mousemove',function(e){
+  if(!mdrag||G.mode!=='viewer')return;
+  VZ.tx+=e.clientX-mdrag.x;VZ.ty+=e.clientY-mdrag.y;
+  var lim=220*VZ.s;VZ.tx=clamp(VZ.tx,-lim,lim);VZ.ty=clamp(VZ.ty,-lim,lim);
+  mdrag={x:e.clientX,y:e.clientY};vzApply();
+ });
+ window.addEventListener('mouseup',function(){mdrag=null;});
 }
 function refreshMenu(){
  var s=loadSave();

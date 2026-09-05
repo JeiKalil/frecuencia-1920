@@ -8,8 +8,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#000000">
-<meta name="description" content="FRECUENCIA 1920 3D — El Origen del Broadcasting. Aventura 3D en tercera persona, 60 FPS, WebGL. PC: WASD + ratón. Móvil: joystick táctil.">
 <title>FRECUENCIA 1920 3D — El Origen del Broadcasting · Web</title>
+<meta name="description" content="FRECUENCIA 1920 3D — El Origen del Broadcasting. Aventura 3D en tercera persona, 60 FPS, WebGL. PC: WASD + ratón. Móvil: joystick táctil.">
 <link rel="icon" type="image/png" href="./favicon.png">
 <link rel="stylesheet" href="./style.css">
 <script src="./three.min.js"></script>
@@ -18,11 +18,6 @@
 <div id="app">
   <!-- Lienzo HTML5 adaptativo: 100% ventana horizontal, filtrado nítido -->
   <canvas id="game-canvas"></canvas>
-  <div id="vignette"></div>
-  <div id="scanlines"></div>
-
-  <div id="rotate-msg"><div style="font-size:52px">🔄</div><div><b>Gira tu dispositivo</b><br>Este juego es horizontal (Landscape) 16:9 / 18:9 / 20:9</div></div>
-
   <!-- BOOT: desbloqueo WebAudio (autoplay policy PC/móvil) -->
   <div id="boot">
     <div class="boot-card">
@@ -35,6 +30,12 @@
       <p class="boot-note">Toca una vez para activar el audio (estática, válvulas, Ragtime 1920).<br>Después elige JUGAR en el menú.</p>
     </div>
   </div>
+
+
+  <div id="vignette"></div>
+  <div id="scanlines"></div>
+
+  <div id="rotate-msg"><div style="font-size:52px">🔄</div><div><b>Gira tu dispositivo</b><br>Este juego es horizontal (Landscape) 16:9 / 18:9 / 20:9</div></div>
 
   <!-- HUD flotante -->
   <div id="hud" class="hidden">
@@ -56,6 +57,7 @@
   <div id="touch-hint" class="hidden">PC: WASD + ratón · Móvil: joystick izq + arrastra der · Acércate al [N] dorado</div>
 
   <button id="btn-action"><span class="ico" id="action-ico">📻</span><span id="action-txt">Inspeccionar</span></button>
+  <button id="btn-view"><span class="ico">🔍</span><span id="view-txt">Visualizar Cuadro</span></button>
   <div id="toast"></div>
   <div id="save-toast"><svg width="26" height="24" viewBox="0 0 30 28"><polygon points="15,1 29,27 1,27" fill="none" stroke="#7ec87e" stroke-width="2.5"/><text x="15" y="22" text-anchor="middle" font-size="10" font-weight="bold" fill="#7ec87e">JO</text></svg><span id="save-txt">Punto de guardado</span></div>
   <div id="fps"></div>
@@ -93,11 +95,14 @@
         🔢 <b>Ruta numerada [1][2][3][4]:</b> sigue los marcadores flotantes. <b style="color:#8a6d00">Dorado parpadeante + flecha ▼</b> = siguiente objetivo · <b style="color:#666">Gris 🔒</b> = bloqueado · <b style="color:#2f7d2f">Verde ✓</b> = completado.<br>
         🖼️ <b>Galería de época:</b> cada estación tiene su cuadro sepia en la pared — inspecciónalo para ver su pie de foto histórico.<br>
         🖼️ <b>Paredes laterales:</b> 5 fotos reales más por sala (familias, antenas, inventores, orquestas, afiches) — la pared de la puerta queda libre.<br>
+        🔍 <b>Visor HD:</b> acércate a cualquier cuadro y pulsa <b>Visualizar Cuadro</b> — pellizca/rueda para zoom.<br>
         📋 <b>Tutorial previo:</b> antes de cada puzzle/trivia verás una tarjeta con pasos y el botón <b>¡ENTENDIDO! COMENZAR</b>.<br>
-        🔧 <b>Botón de acción:</b> aparece con ícono retro al acercarte a un objeto.<br>
-        🧩 <b>Loop:</b> 1) Explora en orden → 2) Tutorial + puzzle → 3) Tutorial + trivia A-B-C-D.<br>
-        🎯 <b>Objetivo HUD:</b> la barra superior indica <i>“Objetivo: Dirígete a…”</i>.<br>
-        📡 <b>Frecuencia:</b> +100 Hz por trivia para abrir la puerta. 🔋 3 tubos; sin tubos → <b>Señal Perdida</b>.
+        🔧 <b>Botón de acción:</b> aparece con ícono retro al acercarte a un objeto (Inspeccionar / Reparar / Sintonizar).<br>
+        🧩 <b>Loop por hito:</b> 1) Explora en orden → 2) Tutorial + puzzle 3D táctil → 3) Tutorial + trivia A-B-C-D.<br>
+        🎯 <b>Objetivo HUD:</b> la barra superior siempre indica <i>“Objetivo: Dirígete a…”</i>.<br>
+        📡 <b>Puntos de frecuencia:</b> cada trivia otorga +100 Hz para abrir la puerta a la siguiente zona.<br>
+        🔋 <b>Vidas:</b> 3 tubos de vacío. Fallar resta 1. Al perder las 3 → <b>Señal Perdida</b>.<br>
+        ⌨️ <b>En PC:</b> WASD/flechas mover · arrastra ratón = cámara · E = interactuar.
       </div>
       <div class="divider"></div>
       <button class="btn btn-gold" id="btn-help-back">◀ VOLVER</button>
@@ -124,24 +129,24 @@
     </div>
   </div>
 
-  <!-- PUZZLE Z1 -->
+  <!-- PUZZLE Z1: calibrar 8XK -->
   <div id="puzzle1" class="screen hidden">
     <div class="panel">
       <h1 style="font-size:22px">🔧 CALIBRAR TRANSMISOR 8XK</h1>
-      <div class="small"><i>Garaje de Frank Conrad · Elimina el ruido blanco moviendo el dial hasta la zona verde (88%).</i></div>
+      <div class="small"><i>Garaje de Frank Conrad · Elimina el ruido blanco moviendo el dial hasta la zona verde (88%). La música de 1920 se aclarará.</i></div>
       <canvas id="wave-canvas" width="640" height="110"></canvas>
       <div style="font-size:15px"><b>Dial de frecuencia: <span id="p1-val">50</span>%</b> · Claridad: <b id="p1-q">0%</b></div>
       <input type="range" min="0" max="100" value="50" class="puzzle-slider" id="p1-slider">
-      <div class="small">🟩 Zona nítida: 82–94% · PC: ratón/teclado · Móvil: táctil</div>
+      <div class="small">🟩 Zona nítida: 82–94% · 🎵 Escucha: la estática desaparece al acercarte</div>
       <div class="btn-row"><button class="btn btn-dark" id="p1-cancel">SALIR</button><button class="btn btn-gold" id="p1-ok">ESTABILIZAR ONDA ▶</button></div>
     </div>
   </div>
 
-  <!-- PUZZLE Z2 -->
+  <!-- PUZZLE Z2: frecuencia + potencia contra reloj -->
   <div id="puzzle2" class="screen hidden">
     <div class="panel">
       <h1 style="font-size:22px">📡 KDKA EN VIVO · ¡AL AIRE!</h1>
-      <div class="small"><i>Noche electoral Harding vs. Cox · Alinea <b>frecuencia (≈75%)</b> y <b>potencia (≈65%)</b> antes del tiempo.</i></div>
+      <div class="small"><i>Noche electoral Harding vs. Cox · Alinea <b>frecuencia (≈75%)</b> y <b>potencia (≈65%)</b> antes de que acabe el tiempo de emisión.</i></div>
       <div id="timer-big">⏱ 30</div>
       <div id="mixer-bars">
         <div><div class="mbar" id="mb-f"><div class="zone-ok" id="zo-f"></div><div class="fill" id="fill-f"></div></div><div class="small"><b>FRECUENCIA</b><br><span id="v-f">50%</span></div><input type="range" min="0" max="100" value="50" class="puzzle-slider" id="p2-freq" style="width:130px"></div>
@@ -152,11 +157,11 @@
     </div>
   </div>
 
-  <!-- PUZZLE Z3 -->
+  <!-- PUZZLE Z3: patchbay Parsifal -->
   <div id="puzzle3" class="screen hidden">
     <div class="panel">
       <h1 style="font-size:22px">🎭 PARCHES DE PARSIFAL · 5W</h1>
-      <div class="small"><i>Azotea del Teatro Coliseo · Toca un <b>cable</b> y luego su <b>clavija</b>.<br>FASE A→MIC · FASE B→ANTENA · FASE C→TIERRA</i></div>
+      <div class="small"><i>Azotea del Teatro Coliseo · Conecta el circuito: toca un <b>cable</b> y luego su <b>clavija</b> correcta.<br>FASE A→MIC ESCENARIO · FASE B→ANTENA AZOTEA · FASE C→TIERRA COLISEO</i></div>
       <div class="small"><b>Cables:</b></div>
       <div class="patch-grid" id="cables"></div>
       <div class="small"><b>Clavijas del transmisor:</b></div>
@@ -166,7 +171,7 @@
     </div>
   </div>
 
-  <!-- TUTORIAL -->
+  <!-- TUTORIAL previo a puzzle/trivia -->
   <div id="tutorial" class="screen hidden">
     <div class="panel" id="tutorial-panel">
       <div class="small" style="color:#a93226;font-weight:bold;letter-spacing:1px">📋 TARJETA INFORMATIVA · LEE ANTES DE EMPEZAR</div>
@@ -188,6 +193,17 @@
       <div id="cap-icon" style="font-size:52px;line-height:1">🖼️</div>
       <div style="font-size:14.5px;line-height:1.65;margin:10px 0" id="cap-body"></div>
       <div class="btn-row"><button class="btn btn-dark" id="cap-close">◀ SEGUIR EXPLORANDO</button><button class="btn btn-gold" id="cap-go" style="display:none">CONTINUAR ▶</button></div>
+    </div>
+  </div>
+
+  <!-- VISOR HD: inspector de época con zoom táctil -->
+  <div id="viewer" class="screen hidden">
+    <div id="viewer-frame">
+      <button id="viewer-close">✖ Cerrar / Volver</button>
+      <div id="viewer-title">Cuadro histórico</div>
+      <div id="viewer-stage"><img id="viewer-img" alt="Fotografía histórica 1920" draggable="false"></div>
+      <div id="viewer-cap">Pie de foto</div>
+      <div id="viewer-hint">Pellizca o rueda para zoom · Arrastra para explorar</div>
     </div>
   </div>
 
@@ -219,7 +235,7 @@
     </div>
   </div>
 
-  <!-- VICTORIA -->
+  <!-- VICTORIA FINAL -->
   <div id="victory" class="screen hidden">
     <div class="panel">
       <div class="tri-logo">
@@ -235,7 +251,7 @@
       <div class="stat-row"><span>★ Sala 4 Legado</span><span>Galería 1920→hoy ✓</span></div>
       <div class="stat-row"><span>◉ Frecuencia total</span><b id="win-score">300 Hz</b></div>
       <div class="stat-row"><span>🔋 Tubos restantes</span><b id="win-lives">3/3</b></div>
-      <div class="small" style="margin-top:8px"><i>En 1920 la radio dejó de ser telégrafo sin hilos para volverse medio de masas.</i></div>
+      <div class="small" style="margin-top:8px"><i>En 1920 la radio dejó de ser telégrafo sin hilos para volverse medio de masas.<br>Una voz → miles de hogares. Había nacido la cultura del éter.</i></div>
       <div class="divider"></div>
       <div class="btn-row"><button class="btn btn-dark" id="btn-win-menu">MENÚ</button><button class="btn btn-gold" id="btn-win-again">↻ JUGAR DE NUEVO</button></div>
     </div>
@@ -269,9 +285,8 @@
   }
   if(btn)btn.addEventListener('click',dismiss);
   document.addEventListener('pointerdown',function once(){
-    if(boot&&boot.style.display!=='none'){/* solo pre-inicializa, no oculta hasta botón */}
+    if(boot&&boot.style.display!=='none'){}
   });
-  // El botón es el gesto válido; también permitir tocar fuera del botón una vez
   if(boot)boot.addEventListener('touchstart',function(e){
     if(e.target&&e.target.id==='boot-btn')return;
   },{passive:true});
